@@ -1,4 +1,5 @@
-package com.filedownload.filedownload.config;
+package com.ioxmentor.config;
+/** created By @Nabeel 08-Oct-2017 **/
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
