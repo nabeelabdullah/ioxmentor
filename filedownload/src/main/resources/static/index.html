@@ -51,10 +51,11 @@
     ======================================================= -->
 </head>
 
-<body >
+<body style="overflow-x: hidden;">
   <!--Navigation bar-->
-  <nav class="navbar navbar-default navbar-fixed-top box-shadow">
-    <div class="container">
+<div class="container-fluid">
+  <nav class="navbar navbar-default navbar-fixed-top box-shadow" style="padding: 10px;">
+  
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
           <span class="icon-bar"></span>
@@ -69,12 +70,12 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#feature">Why AI?</a></li>
           <li><a href="#courses">Courses</a></li>
-          <li></li>
         </ul>
       </div>
 
-    </div>
   </nav>
+  </div>
+
   <!--/ Navigation bar-->
   <!--Modal box-->
   <div class="modal fade" id="login" role="dialog">
@@ -144,18 +145,10 @@
             </p>
         </h1>
       </div>
-      <!--
-<div style="width: 100%;min-height: 100px;background-color: rgba(255,255,255,0.0);position: absolute;bottom:0">
-    <h1><p class="text-center " style="margin-top: 35px;color: white;font-size: 30px;font-family: 'Archivo Black', sans-serif;">
-      PROFESSIONAL TECHNOLOGY PROGRAMS IN
-        MACHINE LEARNING</p></h1>
-  </div>-->
-
     </div>
   </div>
-  <!--/ Banner-->
-  <!--Feature-->
-<div class="container-fluid" style="height: 100px;background-color: #1b3f8b"> 
+
+<div class="container-fluid" style="height: auto; min-height: 100px;background-color: #1b3f8b"> 
   <p class="text-center " style="margin-top: 35px;color: white;font-size: 25px;font-family: 'Open Sans Condensed', sans-serif;">
   Join over thousands of success seekers</p>
 </div>
@@ -335,74 +328,7 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
-  <!--/ work-shop-->
-  <!--Faculity member-->
-  <!--
-  <section id="faculity-member" class="section-padding" style="background-color: white">
-    <div class="container">
-      <div class="row">
-        <div class="header-section text-center">
-          <h2>Meet Our Faculty Member</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem nesciunt vitae,<br> maiores, magni dolorum
-            aliquam.
-          </p>
-          <hr class="bottom-line">
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="pm-staff-profile-container">
-            <div class="pm-staff-profile-image-wrapper text-center">
-              <div class="pm-staff-profile-image">
-                <img src="img/mentor.jpg" alt="" class="img-thumbnail img-circle" />
-              </div>
-            </div>
-            <div class="pm-staff-profile-details text-center">
-              <p class="pm-staff-profile-name">Bryan Johnson</p>
-              <p class="pm-staff-profile-title">Lead Software Engineer</p>
-
-              <p class="pm-staff-profile-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et placerat dui. In posuere metus et elit placerat
-                tristique. Maecenas eu est in sem ullamcorper tincidunt. </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="pm-staff-profile-container">
-            <div class="pm-staff-profile-image-wrapper text-center">
-              <div class="pm-staff-profile-image">
-                <img src="img/mentor.jpg" alt="" class="img-thumbnail img-circle" />
-              </div>
-            </div>
-            <div class="pm-staff-profile-details text-center">
-              <p class="pm-staff-profile-name">Bryan Johnson</p>
-              <p class="pm-staff-profile-title">Lead Software Engineer</p>
-
-              <p class="pm-staff-profile-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et placerat dui. In posuere metus et elit placerat
-                tristique. Maecenas eu est in sem ullamcorper tincidunt. </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="pm-staff-profile-container">
-            <div class="pm-staff-profile-image-wrapper text-center">
-              <div class="pm-staff-profile-image">
-                <img src="img/mentor.jpg" alt="" class="img-thumbnail img-circle" />
-              </div>
-            </div>
-            <div class="pm-staff-profile-details text-center">
-              <p class="pm-staff-profile-name">Bryan Johnson</p>
-              <p class="pm-staff-profile-title">Lead Software Engineer</p>
-
-              <p class="pm-staff-profile-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et placerat dui. In posuere metus et elit placerat
-                tristique. Maecenas eu est in sem ullamcorper tincidunt. </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>-->
-  <!--/ Faculity member-->
-  <!--Testimonial-->
   <hr/>
   <section id="testimonial" style="background-color: white;" class="section-padding">
     <div class="container">
@@ -436,7 +362,6 @@
         </div>
       </div>
     </div>
-    </div>
   </section>
   <!--/ Testimonial-->
   <!--Courses-->
@@ -453,8 +378,8 @@
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-          <div class="col-sm-6" style="">
-            <img src="img/ai.jpeg">
+          <div class="col-sm-6" >
+            <img src="img/ai.jpeg" style="width: 100%"/>
           </div>
           <div class="col-sm-6">
             <p><strong>FAST LANE
