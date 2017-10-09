@@ -61,6 +61,15 @@ public class BaseController {
         return "result";
     }
 
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String signUp() {
+        return signup();
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return login();
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletResponse response, Model modelAndView, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String redirect) {
