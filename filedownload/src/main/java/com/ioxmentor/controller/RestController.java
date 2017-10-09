@@ -1,32 +1,29 @@
 package com.ioxmentor.controller;
 
 
+import com.ioxmentor.enums.LoginStatus;
+import com.ioxmentor.dto.LoginDTO;
+import com.ioxmentor.enums.SignUpStatus;
+import com.ioxmentor.service.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ioxmentor.entity.User;
 import com.ioxmentor.repo.UserRepo;
 
-/** created By @Nabeel 08-Oct-2017 **/
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
-@org.springframework.web.bind.annotation.RestController
-@RequestMapping(value="/user")
+/**
+ * created By @Nabeel 08-Oct-2017
+ **/
+
+@Controller
+@RequestMapping(value = "/user")
 public class RestController {
-	
-	@Autowired
-	private UserRepo userRepo;
-	
-	@RequestMapping(value="/signup")
-	public void signUp(@RequestParam String name,@RequestParam String email,@RequestParam String password)
-	{
-		User user=new User();
-		user.setEmail(email);
-		user.setIsActive(1);
-		user.setPassword(password);
-		user.setUserName(name);
-		userRepo.save(user);
-		System.out.println("done insert");
-	}
-	
+
+
 }
