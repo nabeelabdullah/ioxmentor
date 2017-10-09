@@ -42,6 +42,7 @@ public class BaseController {
     @RequestMapping(value = "/doLogin")
     public String login(Model view, @RequestParam(required = false) String redirect) {
         view.addAttribute("redirect", redirect);
+        System.out.println("redirect " + redirect);
         return "login";
     }
 
@@ -71,6 +72,11 @@ public class BaseController {
         return "login";
     }
 
+    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    public String course() {
+        return "course";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletResponse response, Model modelAndView, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String redirect) {
         LoginDTO loginDTO = account.doLogin(email, password);
@@ -85,6 +91,7 @@ public class BaseController {
         } else {
             modelAndView.addAttribute("result", "Email/Password not correct");
         }
+        modelAndView.addAttribute("redirect", redirect);
         return "login";
     }
 }

@@ -33,12 +33,12 @@ public class filter extends HttpFilter {
     }
 
     private String getToken(Cookie[] cookies) {
-        for (Cookie cookie : cookies) {
-            System.out.println("cookie name " + cookie.getName() + " " + cookie.getValue());
-            if (cookie.getName().equals("token")) {
-                return cookie.getValue();
+        if (cookies != null)
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    return cookie.getValue();
+                }
             }
-        }
         return null;
     }
 
@@ -46,15 +46,21 @@ public class filter extends HttpFilter {
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         Boolean redirectToLogin = true;
         if (request.getRequestURI().contains("/user/")) {
+            String redirect = "";
             String token = getToken(request.getCookies());
             if (token != null) {
                 Login login = loginRepo.findByToken(token);
+                request.setAttribute("userId", login.getUserId());
                 if (login != null && login.getExpAt().getTime() > Calendar.getInstance().getTimeInMillis()) {
                     redirectToLogin = false;
                 }
             }
             if (redirectToLogin) {
-                response.sendRedirect("http://localhost:8080/doLogin");
+                String red = request.getParameter("redirect");
+                if (red != null && red.equals("self")) {
+                    redirect = "redirect=" + request.getRequestURL();
+                }
+                response.sendRedirect("http://localhost:8080/doLogin?" + redirect);
             } else {
                 super.doFilter(request, response, chain);
             }
