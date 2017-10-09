@@ -60,7 +60,7 @@ public class filter extends HttpFilter {
                 if (red != null && red.equals("self")) {
                     redirect = "redirect=" + request.getRequestURL();
                 }
-                response.sendRedirect("http://localhost:8080/doLogin?" + redirect);
+                response.sendRedirect("http://52.73.159.240:8080/doLogin?" + redirect);
             } else {
                 super.doFilter(request, response, chain);
             }
