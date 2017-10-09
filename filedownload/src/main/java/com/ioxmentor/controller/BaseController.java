@@ -62,13 +62,13 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signUp() {
-        return signup();
+    public String signUpGet() {
+        return "signup";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return login();
+    public String loginGet() {
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
