@@ -1,6 +1,7 @@
 package com.ioxmentor.controller;
 
 import com.ioxmentor.dto.LoginDTO;
+import com.ioxmentor.dto.PayUMoneyDTO;
 import com.ioxmentor.enums.LoginStatus;
 import com.ioxmentor.enums.SignUpStatus;
 import com.ioxmentor.repo.UserRepo;
@@ -8,6 +9,7 @@ import com.ioxmentor.service.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,5 +95,10 @@ public class BaseController {
         }
         modelAndView.addAttribute("redirect", redirect);
         return "login";
+    }
+
+    @RequestMapping(value = "/payusuccess")
+    public String paymentCallback(@RequestBody PayUMoneyDTO payUMoneyDTO) {
+        return null;
     }
 }
