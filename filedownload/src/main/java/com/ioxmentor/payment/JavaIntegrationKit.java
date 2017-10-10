@@ -3,7 +3,6 @@ package com.ioxmentor.payment;
 /**
  * Created by nabeelabdullah on 10/10/17.
  */
-
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -29,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
+ *
  * @author root
  */
 public class JavaIntegrationKit {
@@ -69,9 +68,9 @@ public class JavaIntegrationKit {
     public Map<String, String> hashCalMethod(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String salt = "ulgxIRQFYB";
+        String salt = "fE0aTrjr";
         String action1 = "";
-        String base_url = "https://secure.payu.in";
+        String base_url = "https://test.payu.in";
         error = 0;
         String hashString = "";
         Enumeration paramNames = request.getParameterNames();
@@ -95,6 +94,7 @@ public class JavaIntegrationKit {
         }
 
 
+        String txn = "abcd";
         String hash = "";
         String otherPostParamSeq = "phone|surl|furl|lastname|curl|address1|address2|city|state|country|zipcode|pg";
         String hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
