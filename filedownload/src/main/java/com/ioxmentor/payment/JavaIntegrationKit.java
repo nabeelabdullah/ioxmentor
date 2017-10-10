@@ -69,7 +69,7 @@ public class JavaIntegrationKit {
     public Map<String, String> hashCalMethod(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String salt = "fE0aTrjr";
+        String salt = "ulgxIRQFYB";
         String action1 = "";
         String base_url = "https://test.payu.in";
         error = 0;
@@ -93,9 +93,7 @@ public class JavaIntegrationKit {
         } else {
             txnid = params.get("txnid");
         }
-
-
-        String txn = "abcd";
+        
         String hash = "";
         String otherPostParamSeq = "phone|surl|furl|lastname|curl|address1|address2|city|state|country|zipcode|pg";
         String hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";

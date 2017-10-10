@@ -2,8 +2,11 @@ package com.ioxmentor.controller;
 
 import com.ioxmentor.dto.LoginDTO;
 import com.ioxmentor.dto.PayUMoneyDTO;
+import com.ioxmentor.entity.Transaction;
+import com.ioxmentor.entity.User;
 import com.ioxmentor.enums.LoginStatus;
 import com.ioxmentor.enums.SignUpStatus;
+import com.ioxmentor.enums.TransanctionRepo;
 import com.ioxmentor.repo.UserRepo;
 import com.ioxmentor.service.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class BaseController {
 
     @Autowired
     private Account account;
+
+    @Autowired
+    private TransanctionRepo transanctionRepo;
 
     @RequestMapping(value = "/home")
     public String homePage() {
@@ -99,6 +105,21 @@ public class BaseController {
 
     @RequestMapping(value = "/payusuccess")
     public String paymentCallback(@RequestBody PayUMoneyDTO payUMoneyDTO) {
-        return null;
+
+        User user = userRepo.findByEmail(payUMoneyDTO.getCustomerEmail());
+        if (user != null) {
+            Transaction tr = new Transaction();
+            tr.setUserId(user.getId());
+            tr.setAdditionalCharges(payUMoneyDTO.getAdditionalCharges());
+            tr.setAmount(payUMoneyDTO.getAmount());
+            tr.setCustomerEmail(payUMoneyDTO.getCustomerEmail());
+            tr.setMerchantTransactionId(payUMoneyDTO.getMerchantTransactionId());
+            tr.setNotificationId(payUMoneyDTO.getNotificationId());
+            tr.setCustomerPhone(payUMoneyDTO.getCustomerPhone());
+            tr.setError_Message(payUMoneyDTO.getError_Message());
+            tr.setProductInfo(payUMoneyDTO.getProductInfo());
+            transanctionRepo.save(tr);
+        }
+        return "result";
     }
 }
