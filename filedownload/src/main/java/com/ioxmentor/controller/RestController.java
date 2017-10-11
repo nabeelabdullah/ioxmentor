@@ -60,7 +60,7 @@ public class RestController {
         view.addAttribute("name", user.getUserName());
         view.addAttribute("contact", user.getContact());
         view.addAttribute("surl", "http://52.73.159.240:8080/payusuccess");
-        view.addAttribute("furl", "http://52.73.159.240:8080/payusuccess");
+        view.addAttribute("furl", "http://52.73.159.240:8080/payufailed");
         return "payuform";
     }
 

@@ -10,6 +10,7 @@ import com.ioxmentor.enums.TransanctionRepo;
 import com.ioxmentor.repo.UserRepo;
 import com.ioxmentor.service.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -103,16 +104,14 @@ public class BaseController {
         return "login";
     }
 
-    @RequestMapping(value = "/payufailed")
-    public String paymentCallbackFailed(@RequestBody PayUMoneyDTO payUMoneyDTO) {
-        System.out.println("this is fail " + payUMoneyDTO);
+    @RequestMapping(value = "/payufailed", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
+    public String paymentCallbackFailed(Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
+        modelAndView.addAttribute("result", "payment failed");
         return "result";
     }
 
-    @RequestMapping(value = "/payusuccess")
-    public String paymentCallback(@RequestBody PayUMoneyDTO payUMoneyDTO) {
-
-        System.out.println("this is success " + payUMoneyDTO);
+    @RequestMapping(value = "/payusuccess", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
+    public String paymentCallback(Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
         User user = userRepo.findByEmail(payUMoneyDTO.getCustomerEmail());
         if (user != null) {
             Transaction tr = new Transaction();
@@ -127,6 +126,7 @@ public class BaseController {
             tr.setProductInfo(payUMoneyDTO.getProductInfo());
             transanctionRepo.save(tr);
         }
+        modelAndView.addAttribute("result", "payment successful");
         return "result";
     }
 }
