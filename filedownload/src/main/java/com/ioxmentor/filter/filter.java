@@ -45,6 +45,10 @@ public class filter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         Boolean redirectToLogin = true;
+
+        StringBuffer url = request.getRequestURL();
+        String uri = request.getRequestURI();
+        String host = url.substring(0, url.indexOf(uri));
         if (request.getRequestURI().contains("/user/")) {
             String redirect = "";
             String token = getToken(request.getCookies());
@@ -60,7 +64,7 @@ public class filter extends HttpFilter {
                 if (red != null && red.equals("self")) {
                     redirect = "redirect=" + request.getRequestURL();
                 }
-                response.sendRedirect("http://52.73.159.240:8080/doLogin?" + redirect);
+                response.sendRedirect(host + "/doLogin?" + redirect);
             } else {
                 super.doFilter(request, response, chain);
             }

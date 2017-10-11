@@ -103,9 +103,16 @@ public class BaseController {
         return "login";
     }
 
+    @RequestMapping(value = "/payufailed")
+    public String paymentCallbackFailed(@RequestBody PayUMoneyDTO payUMoneyDTO) {
+        System.out.println("this is fail " + payUMoneyDTO);
+        return "result";
+    }
+
     @RequestMapping(value = "/payusuccess")
     public String paymentCallback(@RequestBody PayUMoneyDTO payUMoneyDTO) {
 
+        System.out.println("this is success " + payUMoneyDTO);
         User user = userRepo.findByEmail(payUMoneyDTO.getCustomerEmail());
         if (user != null) {
             Transaction tr = new Transaction();

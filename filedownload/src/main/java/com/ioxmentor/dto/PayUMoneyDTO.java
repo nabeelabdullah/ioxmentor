@@ -131,4 +131,24 @@ public class PayUMoneyDTO {
     public void setNotificationId(String notificationId) {
         this.notificationId = notificationId;
     }
+
+    @Override
+    public String toString() {
+        return "PayUMoneyDTO{" +
+                "split_info='" + split_info + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", additionalCharges='" + additionalCharges + '\'' +
+                ", paymentMode='" + paymentMode + '\'' +
+                ", hash='" + hash + '\'' +
+                ", status='" + status + '\'' +
+                ", error_Message='" + error_Message + '\'' +
+                ", paymentId='" + paymentId + '\'' +
+                ", productInfo='" + productInfo + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", merchantTransactionId='" + merchantTransactionId + '\'' +
+                ", customerPhone='" + customerPhone + '\'' +
+                ", amount='" + amount + '\'' +
+                ", notificationId='" + notificationId + '\'' +
+                '}';
+    }
 }

@@ -69,12 +69,8 @@ public class RestController {
     @RequestMapping(value = "/payu", method = RequestMethod.POST)
     public String payment(HttpServletRequest request, HttpServletResponse response) {
         try {
-            for (String key : request.getParameterMap().keySet()) {
-                System.out.println(key + " = " + request.getParameter(key));
-            }
             JavaIntegrationKit integrationKit = new JavaIntegrationKit();
             Map<String, String> values = integrationKit.hashCalMethod(request, response);
-            System.out.println("map " + values);
             String htmlResponse = "<html> <body> \n"
                     + "      \n"
                     + "  \n"
@@ -167,7 +163,6 @@ public class RestController {
                     + "  \n"
                     + "  </body>\n"
                     + "</html>";
-            System.out.println("-> " + htmlResponse);
             return htmlResponse;
 
         } catch (Exception er) {

@@ -71,7 +71,7 @@ public class JavaIntegrationKit {
         response.setContentType("text/html;charset=UTF-8");
         String salt = "ulgxIRQFYB";
         String action1 = "";
-        String base_url = "https://test.payu.in";
+        String base_url = "https://secure.payu.in";
         error = 0;
         String hashString = "";
         Enumeration paramNames = request.getParameterNames();
@@ -93,7 +93,6 @@ public class JavaIntegrationKit {
         } else {
             txnid = params.get("txnid");
         }
-
 
         String txn = "abcd";
         String hash = "";
@@ -162,3 +161,5 @@ public class JavaIntegrationKit {
         }
     }
 }
+
+
