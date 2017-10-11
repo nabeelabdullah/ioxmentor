@@ -55,7 +55,7 @@ public class RestController {
     public String getPaymentForm(Model view, HttpServletRequest request, @PathVariable Long cId) {
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
         view.addAttribute("result", "You have Added for the course .Find details below");
-        view.addAttribute("amount", 0.10);
+        view.addAttribute("amount", 1.0);
         view.addAttribute("email", user.getEmail());
         view.addAttribute("name", user.getUserName());
         view.addAttribute("contact", user.getContact());
@@ -71,6 +71,7 @@ public class RestController {
         try {
             JavaIntegrationKit integrationKit = new JavaIntegrationKit();
             Map<String, String> values = integrationKit.hashCalMethod(request, response);
+            System.out.println("values " + values);
             String htmlResponse = "<html> <body> \n"
                     + "      \n"
                     + "  \n"
