@@ -41,12 +41,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="color: #00bfff" href="index.html">IOX<span style="color: black">Mentor</span></a>
+            <a class="navbar-brand" style="color: #00bfff" href="/home">IOX<span style="color: black">Mentor</span></a>
         </div>
 
         <div class="collapse navbar-collapse" id="myNavbar" style="float: right">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="tel:+919620712187" class="Blondie"> We're here to help! +91-9620-712-187</a></li>
+                <li th:if="${isLogin=='1'}">
+                    <a class="pointer" data-toggle="dropdown" th:text="${name}">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user/logout">Log out</a></li>
+                    </ul>
+                </li>
+                <li th:if="${isLogin=='0'}">
+                    <a href="/doLogin">Login</a>
+                </li>
             </ul>
         </div>
     </nav>

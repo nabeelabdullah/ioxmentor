@@ -14,6 +14,13 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
+.dropdown-menu li{
+
+list-style-type:none;
+}
+.pointer:hover{
+cursor: pointer;
+}
 ol, ul {
 	list-style: none;
 }

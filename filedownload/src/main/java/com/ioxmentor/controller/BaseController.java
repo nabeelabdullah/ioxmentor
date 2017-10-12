@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -38,20 +39,33 @@ public class BaseController {
     @Autowired
     private TransanctionRepo transanctionRepo;
 
+    public void homeHeader(Model model, HttpServletRequest request) {
+        model.addAttribute("isLogin", "0");
+        if (request.getAttribute("userId") != null) {
+            Long userId = Long.parseLong(request.getAttribute("userId").toString());
+            model.addAttribute("isLogin", "1");
+            User user = userRepo.findOne(userId);
+            model.addAttribute("name", user.getUserName());
+            model.addAttribute("userId", userId);
+        }
+    }
+
     @RequestMapping(value = "/home")
-    public String homePage() {
+    public String homePage(Model model, HttpServletRequest request) {
+        homeHeader(model, request);
         return "index";
     }
 
     @RequestMapping(value = "/doSignup")
-    public String signup() {
+    public String signup(HttpServletRequest request, Model model) {
+        homeHeader(model, request);
         return "signup";
     }
 
     @RequestMapping(value = "/doLogin")
-    public String login(Model view, @RequestParam(required = false) String redirect) {
-        view.addAttribute("redirect", redirect);
-        System.out.println("redirect " + redirect);
+    public String login(HttpServletRequest request, Model model, @RequestParam(required = false) String redirect) {
+        model.addAttribute("redirect", redirect);
+        homeHeader(model, request);
         return "login";
     }
 
@@ -72,22 +86,25 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signUpGet() {
+    public String signUpGet(HttpServletRequest request, Model model) {
+        homeHeader(model, request);
         return "signup";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginGet() {
+    public String loginGet(HttpServletRequest request, Model model) {
+        homeHeader(model, request);
         return "login";
     }
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public String course() {
+    public String course(HttpServletRequest request, Model model) {
+        homeHeader(model, request);
         return "course";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletResponse response, Model modelAndView, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String redirect) {
+    public String login(HttpServletRequest request, HttpServletResponse response, Model modelAndView, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) String redirect) {
         LoginDTO loginDTO = account.doLogin(email, password);
         if (loginDTO.getLoginMGS() == LoginStatus.LOGGED_IN) {
             Cookie cookie = new Cookie("token", loginDTO.getToken());
@@ -97,6 +114,7 @@ public class BaseController {
             if (redirect != null && !redirect.equals("")) {
                 return "redirect:" + redirect;
             }
+            return "redirect:/home";
         } else {
             modelAndView.addAttribute("result", "Email/Password not correct");
         }
@@ -105,13 +123,14 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/payufailed", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
-    public String paymentCallbackFailed(Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
+    public String paymentCallbackFailed(HttpServletRequest request, Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
         modelAndView.addAttribute("result", "payment failed");
+        homeHeader(modelAndView, request);
         return "result";
     }
 
     @RequestMapping(value = "/payusuccess", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
-    public String paymentCallback(Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
+    public String paymentCallback(HttpServletRequest request, Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
         User user = userRepo.findByEmail(payUMoneyDTO.getCustomerEmail());
         if (user != null) {
             Transaction tr = new Transaction();
@@ -127,6 +146,7 @@ public class BaseController {
             transanctionRepo.save(tr);
         }
         modelAndView.addAttribute("result", "payment successful");
+        homeHeader(modelAndView, request);
         return "result";
     }
 }

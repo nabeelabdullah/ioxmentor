@@ -2,6 +2,7 @@ package com.ioxmentor.controller;
 
 
 import com.ioxmentor.entity.Enroll;
+import com.ioxmentor.entity.Login;
 import com.ioxmentor.entity.User;
 import com.ioxmentor.enums.LoginStatus;
 import com.ioxmentor.dto.LoginDTO;
@@ -9,6 +10,7 @@ import com.ioxmentor.enums.PaymentStatus;
 import com.ioxmentor.enums.SignUpStatus;
 import com.ioxmentor.payment.JavaIntegrationKit;
 import com.ioxmentor.repo.EnrollRepo;
+import com.ioxmentor.repo.LoginRepo;
 import com.ioxmentor.service.Account;
 import com.ioxmentor.service.EnrollService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,32 @@ public class RestController {
     private EnrollService enrollService;
 
     @Autowired
+    private LoginRepo loginRepo;
+
+    @Autowired
     private UserRepo userRepo;
+
+
+    public void homeHeader(Model model, HttpServletRequest request) {
+        model.addAttribute("isLogin", "0");
+        if (request.getAttribute("userId") != null) {
+            Long userId = Long.parseLong(request.getAttribute("userId").toString());
+            model.addAttribute("isLogin", "1");
+            User user = userRepo.findOne(userId);
+            model.addAttribute("name", user.getUserName());
+            model.addAttribute("userId", userId);
+        }
+    }
+
+
+    @RequestMapping(value = "/logout")
+    public String logOut(Model view, HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("tokenId") != null) {
+            Long tokenId = Long.parseLong(request.getAttribute("tokenId").toString());
+            loginRepo.delete(tokenId);
+        }
+        return "redirect:/home";
+    }
 
     @RequestMapping(value = "{cId}/enroll")
     public String login(Model view, HttpServletRequest request, @PathVariable Long cId) {
@@ -48,6 +75,7 @@ public class RestController {
         view.addAttribute("cAt", enroll.getCreatedAt());
         view.addAttribute("pAt", enroll.getPaidAt());
         view.addAttribute("paidStatus", enroll.getPaymentStatus().name());
+        homeHeader(view, request);
         return "enroll";
     }
 
@@ -61,6 +89,7 @@ public class RestController {
         view.addAttribute("contact", user.getContact());
         view.addAttribute("surl", "http://52.73.159.240:8080/payusuccess");
         view.addAttribute("furl", "http://52.73.159.240:8080/payufailed");
+        homeHeader(view, request);
         return "payuform";
     }
 

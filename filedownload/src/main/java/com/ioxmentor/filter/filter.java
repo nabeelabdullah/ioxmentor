@@ -49,12 +49,18 @@ public class filter extends HttpFilter {
         StringBuffer url = request.getRequestURL();
         String uri = request.getRequestURI();
         String host = url.substring(0, url.indexOf(uri));
+        String token = getToken(request.getCookies());
+        Login login = null;
+        if (token != null) {
+            login = loginRepo.findByToken(token);
+            if (login != null) {
+                request.setAttribute("userId", login.getUserId());
+                request.setAttribute("tokenId", login.getId());
+            }
+        }
         if (request.getRequestURI().contains("/user/")) {
             String redirect = "";
-            String token = getToken(request.getCookies());
             if (token != null) {
-                Login login = loginRepo.findByToken(token);
-                request.setAttribute("userId", login.getUserId());
                 if (login != null && login.getExpAt().getTime() > Calendar.getInstance().getTimeInMillis()) {
                     redirectToLogin = false;
                 }
