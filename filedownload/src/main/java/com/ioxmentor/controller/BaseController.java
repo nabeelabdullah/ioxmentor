@@ -50,7 +50,7 @@ public class BaseController {
         }
     }
 
-    @RequestMapping
+    @RequestMapping(value = "")
     public String homePage2(Model model, HttpServletRequest request) {
         homeHeader(model, request);
         return "index";
