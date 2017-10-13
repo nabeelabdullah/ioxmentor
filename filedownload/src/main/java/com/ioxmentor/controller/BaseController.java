@@ -50,12 +50,6 @@ public class BaseController {
         }
     }
 
-    @RequestMapping(value = "")
-    public String homePage2(Model model, HttpServletRequest request) {
-        homeHeader(model, request);
-        return "index";
-    }
-
     @RequestMapping(value = "/home")
     public String homePage(Model model, HttpServletRequest request) {
         homeHeader(model, request);
