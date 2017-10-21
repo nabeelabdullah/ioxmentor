@@ -6,17 +6,18 @@ package com.ioxmentor.dto;
 public class PayUMoneyDTO {
 
     public String split_info;
-    public String customerName;
+    public String firstname;
     public String additionalCharges;
-    public String paymentMode;
+    public String mode;
     public String hash;
     public String status;
     public String error_Message;
     public String paymentId;
-    public String productInfo;
-    public String customerEmail;
-    public String merchantTransactionId;
-    public String customerPhone;
+    public String payuMoneyId;
+    public String productinfo;
+    public String email;
+    public String txnid;
+    public String mobile;
     public String amount;
     public String notificationId;
 
@@ -28,12 +29,12 @@ public class PayUMoneyDTO {
         this.split_info = split_info;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getAdditionalCharges() {
@@ -44,12 +45,12 @@ public class PayUMoneyDTO {
         this.additionalCharges = additionalCharges;
     }
 
-    public String getPaymentMode() {
-        return paymentMode;
+    public String getMode() {
+        return mode;
     }
 
-    public void setPaymentMode(String paymentMode) {
-        this.paymentMode = paymentMode;
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public String getHash() {
@@ -84,36 +85,44 @@ public class PayUMoneyDTO {
         this.paymentId = paymentId;
     }
 
-    public String getProductInfo() {
-        return productInfo;
+    public String getPayuMoneyId() {
+        return payuMoneyId;
     }
 
-    public void setProductInfo(String productInfo) {
-        this.productInfo = productInfo;
+    public void setPayuMoneyId(String payuMoneyId) {
+        this.payuMoneyId = payuMoneyId;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getProductinfo() {
+        return productinfo;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setProductinfo(String productinfo) {
+        this.productinfo = productinfo;
     }
 
-    public String getMerchantTransactionId() {
-        return merchantTransactionId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMerchantTransactionId(String merchantTransactionId) {
-        this.merchantTransactionId = merchantTransactionId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCustomerPhone() {
-        return customerPhone;
+    public String getTxnid() {
+        return txnid;
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
+    public void setTxnid(String txnid) {
+        this.txnid = txnid;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getAmount() {
@@ -136,17 +145,18 @@ public class PayUMoneyDTO {
     public String toString() {
         return "PayUMoneyDTO{" +
                 "split_info='" + split_info + '\'' +
-                ", customerName='" + customerName + '\'' +
+                ", firstname='" + firstname + '\'' +
                 ", additionalCharges='" + additionalCharges + '\'' +
-                ", paymentMode='" + paymentMode + '\'' +
+                ", mode='" + mode + '\'' +
                 ", hash='" + hash + '\'' +
                 ", status='" + status + '\'' +
                 ", error_Message='" + error_Message + '\'' +
                 ", paymentId='" + paymentId + '\'' +
-                ", productInfo='" + productInfo + '\'' +
-                ", customerEmail='" + customerEmail + '\'' +
-                ", merchantTransactionId='" + merchantTransactionId + '\'' +
-                ", customerPhone='" + customerPhone + '\'' +
+                ", payuMoneyId='" + payuMoneyId + '\'' +
+                ", productinfo='" + productinfo + '\'' +
+                ", email='" + email + '\'' +
+                ", txnid='" + txnid + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", amount='" + amount + '\'' +
                 ", notificationId='" + notificationId + '\'' +
                 '}';

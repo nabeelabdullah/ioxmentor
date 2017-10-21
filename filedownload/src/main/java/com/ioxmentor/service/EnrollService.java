@@ -31,4 +31,16 @@ public class EnrollService {
         }
         return enroll;
     }
+
+
+    public Enroll enrollPayment(Long enId, Float amount) {
+        Enroll enroll = enrollRepo.findOne(enId);
+        enroll.setAmountPaid(amount);
+        enroll.setPaidAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+        enroll.setPaymentStatus(PaymentStatus.PAID);
+        enroll = enrollRepo.save(enroll);
+        return enroll;
+    }
+
+
 }

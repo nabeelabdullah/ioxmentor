@@ -9,6 +9,7 @@ import com.ioxmentor.enums.SignUpStatus;
 import com.ioxmentor.enums.TransanctionRepo;
 import com.ioxmentor.repo.UserRepo;
 import com.ioxmentor.service.Account;
+import com.ioxmentor.service.EnrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,9 @@ public class BaseController {
 
     @Autowired
     private TransanctionRepo transanctionRepo;
+
+    @Autowired
+    private EnrollService enrollService;
 
     public void homeHeader(Model model, HttpServletRequest request) {
         model.addAttribute("isLogin", "0");
@@ -132,24 +136,29 @@ public class BaseController {
 
     @RequestMapping(value = "/payusuccess", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
     public String paymentCallback(HttpServletRequest request, Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
-
-        System.out.println("payUMoneyDTO " + payUMoneyDTO);
-
-        User user = userRepo.findByEmail(payUMoneyDTO.getCustomerEmail());
-        if (user != null) {
-            Transaction tr = new Transaction();
-            tr.setUserId(user.getId());
-            tr.setAdditionalCharges(payUMoneyDTO.getAdditionalCharges());
-            tr.setAmount(payUMoneyDTO.getAmount());
-            tr.setCustomerEmail(payUMoneyDTO.getCustomerEmail());
-            tr.setMerchantTransactionId(payUMoneyDTO.getMerchantTransactionId());
-            tr.setNotificationId(payUMoneyDTO.getNotificationId());
-            tr.setCustomerPhone(payUMoneyDTO.getCustomerPhone());
-            tr.setError_Message(payUMoneyDTO.getError_Message());
-            tr.setProductInfo(payUMoneyDTO.getProductInfo());
-            transanctionRepo.save(tr);
+        if (payUMoneyDTO.getStatus().equals("success")) {
+            User user = userRepo.findByEmail(payUMoneyDTO.getEmail());
+            if (user != null) {
+                Transaction tr = new Transaction();
+                tr.setUserId(user.getId());
+                tr.setAdditionalCharges(payUMoneyDTO.getAdditionalCharges());
+                tr.setAmount(payUMoneyDTO.getAmount());
+                tr.setCustomerEmail(payUMoneyDTO.getEmail());
+                tr.setMerchantTransactionId(payUMoneyDTO.getTxnid());
+                tr.setNotificationId(payUMoneyDTO.getNotificationId());
+                tr.setCustomerPhone(payUMoneyDTO.getMobile());
+                tr.setError_Message(payUMoneyDTO.getError_Message());
+                tr.setProductInfo(payUMoneyDTO.getProductinfo());
+                if (transanctionRepo.save(tr) != null) {
+                    String productInfo = payUMoneyDTO.getProductinfo();
+                    Long enId = Long.parseLong(productInfo);
+                    enrollService.enrollPayment(enId, Float.parseFloat(tr.getAmount()));
+                }
+            }
+            modelAndView.addAttribute("result", "payment successful");
+        } else {
+            modelAndView.addAttribute("result", "payment failed");
         }
-        modelAndView.addAttribute("result", "payment successful");
         homeHeader(modelAndView, request);
         return "result";
     }
