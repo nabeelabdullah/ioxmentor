@@ -60,7 +60,8 @@
 </div>
 <div class="container" style="margin-top:150px;">
     <form action="/user/payu" name="payuform" method="POST">
-        <input type="hidden" name="key" value="fWIZU47q"/>
+        <input type="hidden" name="key" value="JeDS8cwu"/>
+        <!--<input type="hidden" name="key" value="UFu3ed"/>-->
         <input type="hidden" name="hash_string" value=""/>
         <input type="hidden" name="hash"/>
 
@@ -69,6 +70,10 @@
         <table class="table">
             <tr>
                 <td colspan="2">Please find the details</td>
+            </tr>
+            <tr>
+                <td>Course</td>
+                <td th:text="${title}"></td>
             </tr>
             <tr>
                 <td>Name</td>
@@ -87,7 +92,7 @@
                 <td th:text="${amount}"></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" class="btn btn-info" value="Submit"/></td>
+                <td colspan="2"><input type="submit" class="btn btn-info" value="Pay"/></td>
             </tr>
         </table>
 
@@ -106,7 +111,7 @@
             </tr>
             <tr>
                 <td>Product Info:</td>
-                <td colspan="3"><textarea th:text="${name}" name="productinfo">product </textarea></td>
+                <td colspan="3"><textarea th:text="${enrollId}" name="productinfo"> </textarea></td>
             </tr>
             <tr>
                 <td>Success URI:</td>

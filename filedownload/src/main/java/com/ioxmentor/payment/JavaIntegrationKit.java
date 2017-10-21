@@ -69,7 +69,7 @@ public class JavaIntegrationKit {
     public Map<String, String> hashCalMethod(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String salt = "ulgxIRQFYB";
+        String salt = "xXxcq1UUJE";
         String action1 = "";
         String base_url = "https://secure.payu.in";
         error = 0;
