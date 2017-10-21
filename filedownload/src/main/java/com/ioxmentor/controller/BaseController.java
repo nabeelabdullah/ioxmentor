@@ -124,6 +124,7 @@ public class BaseController {
 
     @RequestMapping(value = "/payufailed", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
     public String paymentCallbackFailed(HttpServletRequest request, Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
+        System.out.println("payUMoneyDTO " + payUMoneyDTO);
         modelAndView.addAttribute("result", "payment failed");
         homeHeader(modelAndView, request);
         return "result";
@@ -131,6 +132,9 @@ public class BaseController {
 
     @RequestMapping(value = "/payusuccess", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, method = RequestMethod.POST)
     public String paymentCallback(HttpServletRequest request, Model modelAndView, PayUMoneyDTO payUMoneyDTO) {
+
+        System.out.println("payUMoneyDTO " + payUMoneyDTO);
+
         User user = userRepo.findByEmail(payUMoneyDTO.getCustomerEmail());
         if (user != null) {
             Transaction tr = new Transaction();
