@@ -77,7 +77,11 @@
       ======================================================= -->
 </head>
 
-<body onload="$('#enquirypop').hide();$('#alertTab').hide();">
+<body onload="$('#enquirypop').hide();$('#alertTab').hide();$('#loadingFirst').hide();">
+
+<div  id='loadingFirst' style="width:100%;height:100vh;background-color:white;position:fixed;z-index:100000000;border:1px solid white;">
+    <img src="img/index.triple-gears-loading-icon.svg" style="margin-left:calc(100%/2);margin-top:100px;"/>
+</div>
 <!--Navigation bar-->
 <div class="container-fluid">
     <div id="alertTab" class="alert alert-danger" style="z-index:10000000;position:absolute;width:700px;margin-left:calc(100vw/2 - 350px)">
@@ -375,7 +379,7 @@
                         DevOps
                         MASTERY</strong></p>
                     <hr/>
-                    <p>I want to master DevOps thereby become part of the reason teams experience deployment failures is due to programming defects.</p>
+                    <p>DevOps has been proven to increase the speed, efficiency and quality of software delivery as well as improving staff morale and motivation.</p>
                     <hr/>
                     <a href="/2/course">
                         <button style="width:100%;" class="btn btn-info">START MY TRENDING JOURNEY NOW</button>
