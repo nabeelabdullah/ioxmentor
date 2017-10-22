@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -102,10 +99,16 @@ public class BaseController {
         return "login";
     }
 
-    @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public String course(HttpServletRequest request, Model model) {
+    @RequestMapping(value = "{cid}/course", method = RequestMethod.GET)
+    public String course(HttpServletRequest request, Model model, @PathVariable String cid) {
         homeHeader(model, request);
-        return "course";
+        model.addAttribute("cid", cid);
+        if (cid.equals("1"))
+            return "course";
+        else if (cid.equals("2")) {
+            return "devops";
+        }
+        return "";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

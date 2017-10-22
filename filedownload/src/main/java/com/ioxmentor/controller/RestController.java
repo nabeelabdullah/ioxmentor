@@ -2,6 +2,7 @@ package com.ioxmentor.controller;
 
 
 import com.ioxmentor.entity.*;
+import com.ioxmentor.enums.CourseType;
 import com.ioxmentor.enums.LoginStatus;
 import com.ioxmentor.dto.LoginDTO;
 import com.ioxmentor.enums.PaymentStatus;
@@ -71,15 +72,21 @@ public class RestController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "{cId}/offer")
-    public String login(Model view, HttpServletRequest request, @PathVariable Long cId, @RequestParam String coupon) {
+    @RequestMapping(value = "/offer")
+    public String login(Model view, HttpServletRequest request, @RequestParam Long cId, @RequestParam String coupon) {
         Enroll enroll = enrollService.applyCoupon(Long.parseLong(request.getAttribute("userId").toString()), cId, coupon);
         return "redirect:/user/" + cId + "/paymentForm?redirect=self";
     }
 
-    @RequestMapping(value = "{cId}/deleteOffer")
-    public String deleteOffer(HttpServletRequest request, @PathVariable Long cId) {
+    @RequestMapping(value = "/deleteOffer")
+    public String deleteOffer(HttpServletRequest request, @RequestParam Long cId) {
         enrollService.deleteCoupon(Long.parseLong(request.getAttribute("userId").toString()), cId);
+        return "redirect:/user/" + cId + "/paymentForm?redirect=self";
+    }
+
+    @RequestMapping(value = "/changeType")
+    public String deleteOffer(HttpServletRequest request, @RequestParam String type, @RequestParam Long cId) {
+        enrollService.changeType(Long.parseLong(request.getAttribute("userId").toString()), cId, CourseType.valueOf(type));
         return "redirect:/user/" + cId + "/paymentForm?redirect=self";
     }
 
@@ -89,13 +96,15 @@ public class RestController {
         Course course = courseService.getCourseById(cId);
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
         view.addAttribute("result", "You have Added for the Course .Find details below");
-        view.addAttribute("amount", course.getBasePrice());
+        view.addAttribute("amount", enroll.getActualPrice());
         view.addAttribute("email", user.getEmail());
         view.addAttribute("title", course.getCourseTitle());
         view.addAttribute("name", user.getUserName());
+        view.addAttribute("cid", cId);
         view.addAttribute("enrollId", enroll.getId());
         view.addAttribute("contact", user.getContact());
         view.addAttribute("code", enroll.getCoupon());
+        view.addAttribute("type", enroll.getCourseType().name());
         view.addAttribute("amountToPaid", enroll.getAmmountToBePaid());
         view.addAttribute("couponApplied", enroll.getCoupon() != null);
         view.addAttribute("surl", "http://52.73.159.240:8080/payusuccess");

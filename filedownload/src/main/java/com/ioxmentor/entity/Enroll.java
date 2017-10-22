@@ -1,5 +1,6 @@
 package com.ioxmentor.entity;
 
+import com.ioxmentor.enums.CourseType;
 import com.ioxmentor.enums.PaymentStatus;
 
 import javax.persistence.*;
@@ -44,6 +45,10 @@ public class Enroll {
 
     @Column
     private Float ammountToBePaid;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private CourseType courseType;
 
     public Long getId() {
         return id;
@@ -107,6 +112,14 @@ public class Enroll {
 
     public void setCouponApplied(Boolean couponApplied) {
         this.couponApplied = couponApplied;
+    }
+
+    public CourseType getCourseType() {
+        return courseType;
+    }
+
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
     }
 
     public String getCoupon() {

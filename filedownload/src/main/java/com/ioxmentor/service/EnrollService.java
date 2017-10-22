@@ -4,6 +4,7 @@ import com.ioxmentor.entity.Coupon;
 import com.ioxmentor.entity.Course;
 import com.ioxmentor.entity.Enroll;
 import com.ioxmentor.enums.AmountType;
+import com.ioxmentor.enums.CourseType;
 import com.ioxmentor.enums.PaymentStatus;
 import com.ioxmentor.repo.EnrollRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class EnrollService {
             enroll = new Enroll();
             Course course = courseService.getCourseById(cId);
             enroll.setUserId(uId);
-            enroll.setAmmountToBePaid(TaxService.getFinalAmount(course.getBasePrice()));
+            enroll.setCourseType(CourseType.OFFLINE);
+            enroll.setAmmountToBePaid(TaxService.getFinalAmount(course.getBasePriceOffline()));
             enroll.setCourseId(cId);
             enroll.setAmountPaid(0.0f);
-            enroll.setActualPrice(course.getBasePrice());
+            enroll.setActualPrice(course.getBasePriceOffline());
             enroll.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
             enroll.setPaymentStatus(PaymentStatus.UNPAID);
             enroll = enrollRepo.save(enroll);
@@ -61,7 +63,7 @@ public class EnrollService {
             AmountType type = coupon.getAmountType();
             enroll.setCouponApplied(true);
             enroll.setCoupon(coupon.getCoupon());
-            enroll.setAmmountToBePaid(TaxService.getFinalAmount(getAmountAfterDiscount(coupon.getAmountOff(), course.getBasePrice(), type)));
+            enroll.setAmmountToBePaid(TaxService.getFinalAmount(getAmountAfterDiscount(coupon.getAmountOff(), enroll.getActualPrice(), type)));
         }
         enroll = enrollRepo.save(enroll);
         return enroll;
@@ -74,6 +76,21 @@ public class EnrollService {
         enroll.setPaymentStatus(PaymentStatus.PAID);
         enroll = enrollRepo.save(enroll);
         return enroll;
+    }
+
+    public Enroll changeType(Long uId, Long cId, CourseType courseType) {
+        Enroll enroll = enrollRepo.findByCourseIdAndUserId(cId, uId);
+        Course course = courseService.getCourseById(cId);
+        if (courseType == CourseType.OFFLINE) {
+            enroll.setAmmountToBePaid(TaxService.getFinalAmount(course.getBasePriceOffline()));
+            enroll.setActualPrice(course.getBasePriceOffline());
+            enroll.setCourseType(CourseType.OFFLINE);
+        } else if (courseType == CourseType.ONLINE) {
+            enroll.setAmmountToBePaid(TaxService.getFinalAmount(course.getBasePriceOnlie()));
+            enroll.setActualPrice(course.getBasePriceOnlie());
+            enroll.setCourseType(CourseType.ONLINE);
+        }
+        return enrollRepo.save(enroll);
     }
 
     private Float getAmountAfterDiscount(Float dis, Float amt, AmountType amountType) {

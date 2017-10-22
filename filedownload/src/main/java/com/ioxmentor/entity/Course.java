@@ -19,7 +19,9 @@ public class Course {
 
     private Integer durationInMinuts;
 
-    private Float basePrice;
+    private Float basePriceOnlie;
+
+    private Float basePriceOffline;
 
     private Short isActive = 0;
 
@@ -39,14 +41,6 @@ public class Course {
         this.durationInMinuts = durationInMinuts;
     }
 
-    public Float getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(Float basePrice) {
-        this.basePrice = basePrice;
-    }
-
     public Short getIsActive() {
         return isActive;
     }
@@ -63,14 +57,19 @@ public class Course {
         this.courseTitle = courseTitle;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "Id=" + Id +
-                ", courseTitle='" + courseTitle + '\'' +
-                ", durationInMinuts=" + durationInMinuts +
-                ", basePrice=" + basePrice +
-                ", isActive=" + isActive +
-                '}';
+    public Float getBasePriceOnlie() {
+        return basePriceOnlie;
+    }
+
+    public void setBasePriceOnlie(Float basePriceOnlie) {
+        this.basePriceOnlie = basePriceOnlie;
+    }
+
+    public Float getBasePriceOffline() {
+        return basePriceOffline;
+    }
+
+    public void setBasePriceOffline(Float basePriceOffline) {
+        this.basePriceOffline = basePriceOffline;
     }
 }

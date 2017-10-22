@@ -25,4 +25,12 @@
      $.ajax({url: "/alert/save?email="+$('#email').val()+"&name="+$('#name').val()+"&contact="+$('#contact').val()+"&message="+$('#message').val(), success: function(result){
         $('#enquirypop').hide();
      }});
+
     }
+
+    function doApplyCoupon(){
+        window.open("/user/offer?coupon="+$('#coupon').val()+"&cId="+$('#cid').val(), "_self");
+    }
+    function changeType(type){
+            window.open("/user/changeType?type="+type+"&cId="+$('#cid').val(), "_self");
+        }
