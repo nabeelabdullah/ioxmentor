@@ -68,6 +68,8 @@
 
 
 
+
+
     </script>
     <!-- =======================================================
           Theme Name: Mentor
@@ -79,12 +81,14 @@
 
 <body onload="$('#enquirypop').hide();$('#alertTab').hide();$('#loadingFirst').hide();">
 
-<div  id='loadingFirst' style="width:100%;height:100vh;background-color:white;position:fixed;z-index:100000000;border:1px solid white;">
+<div id='loadingFirst'
+     style="width:100%;height:100vh;background-color:white;position:fixed;z-index:100000000;border:1px solid white;">
     <img src="img/index.triple-gears-loading-icon.svg" style="margin-left:calc(100%/2);margin-top:100px;"/>
 </div>
 <!--Navigation bar-->
 <div class="container-fluid">
-    <div id="alertTab" class="alert alert-danger" style="z-index:10000000;position:absolute;width:700px;margin-left:calc(100vw/2 - 350px)">
+    <div id="alertTab" class="alert alert-danger"
+         style="z-index:10000000;position:absolute;width:700px;margin-left:calc(100vw/2 - 350px)">
         <strong class="glyphicon glyphicon-remove" onclick="$('#alertTab').hide();"></strong> <span id="messageTest">Indicates a dangerous or potentially negative action.</span>
     </div>
     <nav class="navbar navbar-default navbar-fixed-top box-shadow" style="padding: 10px;">
@@ -130,17 +134,17 @@
     <div class="banner box-shadow">
         <div class="bg-color"></div>
         <!--<div id='strip'-->
-             <!--style="top:calc(100vh/2 - 50px);width: 100%;min-height: 100px;background-color: rgba(255,255,255,0);position: absolute;">-->
-            <!--<h1>-->
-                <!--<p class="text-center "-->
-                   <!--style="margin-top: 35px;color: white;font-size: 35px;font-family: 'Open Sans Condensed', sans-serif;">-->
-                    <!--Be a rising star in the emerging world of-->
-                    <!--ARTIFICIAL INTELLIGENCE</p>-->
-                <!--<p class="text-center "-->
-                   <!--style="margin-top: 35px;color: white;font-size: 25px;font-family: 'Open Sans Condensed', sans-serif;">-->
-                    <!--Faster Than You Ever Thought Possible-->
-                <!--</p>-->
-            <!--</h1>-->
+        <!--style="top:calc(100vh/2 - 50px);width: 100%;min-height: 100px;background-color: rgba(255,255,255,0);position: absolute;">-->
+        <!--<h1>-->
+        <!--<p class="text-center "-->
+        <!--style="margin-top: 35px;color: white;font-size: 35px;font-family: 'Open Sans Condensed', sans-serif;">-->
+        <!--Be a rising star in the emerging world of-->
+        <!--ARTIFICIAL INTELLIGENCE</p>-->
+        <!--<p class="text-center "-->
+        <!--style="margin-top: 35px;color: white;font-size: 25px;font-family: 'Open Sans Condensed', sans-serif;">-->
+        <!--Faster Than You Ever Thought Possible-->
+        <!--</p>-->
+        <!--</h1>-->
         <!--</div>-->
     </div>
 </div>
@@ -367,7 +371,7 @@
             </div>
 
         </div>
-<hr/>
+        <hr/>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -379,7 +383,8 @@
                         DevOps
                         MASTERY</strong></p>
                     <hr/>
-                    <p>DevOps has been proven to increase the speed, efficiency and quality of software delivery as well as improving staff morale and motivation.</p>
+                    <p>DevOps has been proven to increase the speed, efficiency and quality of software delivery as well
+                        as improving staff morale and motivation.</p>
                     <hr/>
                     <a href="/2/course">
                         <button style="width:100%;" class="btn btn-info">START MY TRENDING JOURNEY NOW</button>
@@ -400,34 +405,35 @@
     <div style="background-color:#1b3f8b;height:25px;width:100%;">
         <div class="col-sm-10"></div>
         <div class="col-sm-2">
-            <span style="color:white" onclick="$('#enquirypop').hide();" class="glyphicon glyphicon-minus pointer"></span>
+            <span style="color:white" onclick="$('#enquirypop').hide();"
+                  class="glyphicon glyphicon-minus pointer"></span>
         </div>
 
     </div>
     <div style="background-color:#1b3f8b;height:400px;width:100%;color:white">
         <div class="container" style="border:1px solid transparent">
 
-                <div class="form-group">
-                    <label for="email">Email*</label>
-                    <input type="email" class="form-control" style="width:250px;" id="email" placeholder="Enter email"
-                           name="email" required="true"/>
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Name*</label>
-                    <input type="text" class="form-control" style="width:250px;" id="name" placeholder="Enter Name"
-                           name="name" required="true"/>
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Contact*</label>
-                    <input type="text" class="form-control" style="width:250px;" id="contact" placeholder="Enter Contact"
-                           name="contact" required="true"/>
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Message(optional)</label>
-                    <textarea type="text" class="form-control" style="width:250px;height:70px;" id="message"
-                              placeholder="Enter Message" name="message"/>
-                </div>
-                <button type="submit" onclick="doAlertSubmit();" class="btn btn-default">Submit</button>
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="email" class="form-control" style="width:250px;" id="email" placeholder="Enter email"
+                       name="email" required="true"/>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Name*</label>
+                <input type="text" class="form-control" style="width:250px;" id="name" placeholder="Enter Name"
+                       name="name" required="true"/>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Contact*</label>
+                <input type="text" class="form-control" style="width:250px;" id="contact" placeholder="Enter Contact"
+                       name="contact" required="true"/>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Message(optional)</label>
+                <textarea type="text" class="form-control" style="width:250px;height:70px;" id="message"
+                          placeholder="Enter Message" name="message"/>
+            </div>
+            <button type="submit" onclick="doAlertSubmit();" class="btn btn-default">Submit</button>
 
         </div>
     </div>

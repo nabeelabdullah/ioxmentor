@@ -90,6 +90,7 @@ public class EnrollService {
             enroll.setActualPrice(course.getBasePriceOnlie());
             enroll.setCourseType(CourseType.ONLINE);
         }
+        deleteCoupon(uId, cId);
         return enrollRepo.save(enroll);
     }
 
