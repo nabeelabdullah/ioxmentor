@@ -62,4 +62,15 @@ public class Course {
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "Id=" + Id +
+                ", courseTitle='" + courseTitle + '\'' +
+                ", durationInMinuts=" + durationInMinuts +
+                ", basePrice=" + basePrice +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

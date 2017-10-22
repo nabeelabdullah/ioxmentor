@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Payment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -38,7 +38,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="color: #00bfff" href="/home">IOX<span style="color: black">Mentor</span></a>
+            <a class="navbar-brand" style="color: #00bfff" href="/home">Coding<span
+                    style="color: black">Superstar</span></a>
         </div>
 
         <div class="collapse navbar-collapse" id="myNavbar" style="float: right">
@@ -88,8 +89,37 @@
                 <td th:text="${contact}"></td>
             </tr>
             <tr>
-                <td>Amount</td>
-                <td th:text="${amount}"></td>
+                <td>Base Amount</td>
+                <td>&#8377; &nbsp;<span th:text="${amount}"></span></td>
+            </tr>
+            <tr th:if="${couponApplied==true}">
+                <td>Coupon Code </td>
+                <td><span th:text="${code}"></span>&nbsp;<span onclick="window.open('/user/1/deleteOffer', '_self')" class="glyphicon glyphicon-trash pointer"></span></td>
+            </tr>
+            <tr>
+                <td>Amount to be paid</td>
+                <td>&#8377; &nbsp;<span th:text="${amountToPaid}"></span></td>
+            </tr>
+            <tr th:if="${couponApplied==false}">
+                <form action="/user/1/offer" id="formid">
+                    <td>Coupon(optional)</td>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" id="coupon"/>
+                                </td>
+                                <td>
+
+                                    <span onclick="window.open('/user/1/offer?coupon='+$('#coupon').val(), '_self')"
+                                          class="btn btn-success">Apply</span>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </form>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" class="btn btn-info" value="Pay"/></td>
@@ -99,7 +129,7 @@
         <table class="table" style="visibility:hidden;width:0px;height:0px">
             <tr>
                 <td>Amount:</td>
-                <td><input name="amount" th:value="${amount}"/></td>
+                <td><input name="amount" th:value="${amountToPaid}"/></td>
                 <td>First Name:</td>
                 <td><input name="firstname" th:value="${name}" id="firstname"/></td>
             </tr>

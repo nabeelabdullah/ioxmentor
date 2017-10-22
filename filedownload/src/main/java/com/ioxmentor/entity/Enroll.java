@@ -33,6 +33,18 @@ public class Enroll {
     @Column
     private Timestamp paidAt;
 
+    @Column
+    private Boolean couponApplied;
+
+    @Column
+    private String coupon;
+
+    @Column
+    private Float actualPrice;
+
+    @Column
+    private Float ammountToBePaid;
+
     public Long getId() {
         return id;
     }
@@ -87,5 +99,37 @@ public class Enroll {
 
     public void setPaidAt(Timestamp paidAt) {
         this.paidAt = paidAt;
+    }
+
+    public Boolean getCouponApplied() {
+        return couponApplied;
+    }
+
+    public void setCouponApplied(Boolean couponApplied) {
+        this.couponApplied = couponApplied;
+    }
+
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
+    }
+
+    public Float getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(Float actualPrice) {
+        this.actualPrice = actualPrice;
+    }
+
+    public Float getAmmountToBePaid() {
+        return ammountToBePaid;
+    }
+
+    public void setAmmountToBePaid(Float ammountToBePaid) {
+        this.ammountToBePaid = ammountToBePaid;
     }
 }

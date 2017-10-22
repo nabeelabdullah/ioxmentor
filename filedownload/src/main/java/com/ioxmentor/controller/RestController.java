@@ -1,10 +1,7 @@
 package com.ioxmentor.controller;
 
 
-import com.ioxmentor.entity.Course;
-import com.ioxmentor.entity.Enroll;
-import com.ioxmentor.entity.Login;
-import com.ioxmentor.entity.User;
+import com.ioxmentor.entity.*;
 import com.ioxmentor.enums.LoginStatus;
 import com.ioxmentor.dto.LoginDTO;
 import com.ioxmentor.enums.PaymentStatus;
@@ -16,6 +13,7 @@ import com.ioxmentor.repo.LoginRepo;
 import com.ioxmentor.service.Account;
 import com.ioxmentor.service.CourseService;
 import com.ioxmentor.service.EnrollService;
+import com.ioxmentor.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +47,9 @@ public class RestController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private OfferService offerService;
+
     public void homeHeader(Model model, HttpServletRequest request) {
         model.addAttribute("isLogin", "0");
         if (request.getAttribute("userId") != null) {
@@ -70,23 +71,21 @@ public class RestController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "{cId}/enroll")
-    public String login(Model view, HttpServletRequest request, @PathVariable Long cId) {
-        Enroll enroll = enrollService.enroll(Long.parseLong(request.getAttribute("userId").toString()), cId);
-        view.addAttribute("result", "You have Added for the Course .Find details below");
-        view.addAttribute("Id", enroll.getId());
-        view.addAttribute("cId", enroll.getCourseId());
-        view.addAttribute("amount", enroll.getAmountPaid());
-        view.addAttribute("cAt", enroll.getCreatedAt());
-        view.addAttribute("pAt", enroll.getPaidAt());
-        view.addAttribute("paidStatus", enroll.getPaymentStatus().name());
-        homeHeader(view, request);
-        return "enroll";
+    @RequestMapping(value = "{cId}/offer")
+    public String login(Model view, HttpServletRequest request, @PathVariable Long cId, @RequestParam String coupon) {
+        Enroll enroll = enrollService.applyCoupon(Long.parseLong(request.getAttribute("userId").toString()), cId, coupon);
+        return "redirect:/user/" + cId + "/paymentForm?redirect=self";
+    }
+
+    @RequestMapping(value = "{cId}/deleteOffer")
+    public String deleteOffer(HttpServletRequest request, @PathVariable Long cId) {
+        enrollService.deleteCoupon(Long.parseLong(request.getAttribute("userId").toString()), cId);
+        return "redirect:/user/" + cId + "/paymentForm?redirect=self";
     }
 
     @RequestMapping(value = "{cId}/paymentForm")
     public String getPaymentForm(Model view, HttpServletRequest request, @PathVariable Long cId) {
-        Enroll enroll = enrollService.enroll(Long.parseLong(request.getAttribute("userId").toString()), cId);
+        Enroll enroll = enrollService.enroll(Long.parseLong(request.getAttribute("userId").toString()), cId, "");
         Course course = courseService.getCourseById(cId);
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
         view.addAttribute("result", "You have Added for the Course .Find details below");
@@ -96,6 +95,9 @@ public class RestController {
         view.addAttribute("name", user.getUserName());
         view.addAttribute("enrollId", enroll.getId());
         view.addAttribute("contact", user.getContact());
+        view.addAttribute("code", enroll.getCoupon());
+        view.addAttribute("amountToPaid", enroll.getAmmountToBePaid());
+        view.addAttribute("couponApplied", enroll.getCoupon() != null);
         view.addAttribute("surl", "http://52.73.159.240:8080/payusuccess");
         view.addAttribute("furl", "http://52.73.159.240:8080/payufailed");
         homeHeader(view, request);

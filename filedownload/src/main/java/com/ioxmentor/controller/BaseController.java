@@ -60,6 +60,7 @@ public class BaseController {
         return "index";
     }
 
+
     @RequestMapping(value = "/doSignup")
     public String signup(HttpServletRequest request, Model model) {
         homeHeader(model, request);
@@ -144,11 +145,14 @@ public class BaseController {
                 tr.setAdditionalCharges(payUMoneyDTO.getAdditionalCharges());
                 tr.setAmount(payUMoneyDTO.getAmount());
                 tr.setCustomerEmail(payUMoneyDTO.getEmail());
+                tr.setCustomerName(payUMoneyDTO.getFirstname());
+                tr.setPaymentId(payUMoneyDTO.getPaymentId());
+                tr.setPaymentMode(payUMoneyDTO.getMode());
+                tr.setStatus(payUMoneyDTO.getStatus());
                 tr.setMerchantTransactionId(payUMoneyDTO.getTxnid());
                 tr.setNotificationId(payUMoneyDTO.getNotificationId());
                 tr.setCustomerPhone(payUMoneyDTO.getMobile());
                 tr.setError_Message(payUMoneyDTO.getError_Message());
-                tr.setProductInfo(payUMoneyDTO.getProductinfo());
                 if (transanctionRepo.save(tr) != null) {
                     String productInfo = payUMoneyDTO.getProductinfo();
                     Long enId = Long.parseLong(productInfo);
