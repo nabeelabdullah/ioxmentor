@@ -107,8 +107,8 @@ public class RestController {
         view.addAttribute("type", enroll.getCourseType().name());
         view.addAttribute("amountToPaid", enroll.getAmmountToBePaid());
         view.addAttribute("couponApplied", enroll.getCoupon() != null);
-        view.addAttribute("surl", "http://52.73.159.240:8080/payusuccess");
-        view.addAttribute("furl", "http://52.73.159.240:8080/payufailed");
+        view.addAttribute("surl", "http://codingsuperstar.com/payusuccess");
+        view.addAttribute("furl", "http://codingsuperstar.com/payufailed");
         homeHeader(view, request);
         return "payuform";
     }

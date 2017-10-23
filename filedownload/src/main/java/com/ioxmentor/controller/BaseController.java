@@ -107,6 +107,8 @@ public class BaseController {
             return "course";
         else if (cid.equals("2")) {
             return "devops";
+        } else if (cid.equals("3")) {
+            return "fullstack";
         }
         return "";
     }
