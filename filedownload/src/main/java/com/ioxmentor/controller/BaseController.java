@@ -76,6 +76,8 @@ public class BaseController {
         SignUpStatus signUpStatus = account.signUp(name, email, password, contact);
         if (signUpStatus == SignUpStatus.DONE) {
             modelAndView.addAttribute("result", "You have successfully signed up.");
+            LoginDTO loginDTO = account.doLogin(email, password);
+            return "home";
         } else {
             if (signUpStatus == SignUpStatus.EMAIL_EXIST) {
                 modelAndView.addAttribute("result", "Email already exists");
@@ -84,7 +86,6 @@ public class BaseController {
             }
             return "signup";
         }
-        return "result";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
