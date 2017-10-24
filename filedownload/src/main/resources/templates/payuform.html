@@ -103,7 +103,7 @@
                 <td><span th:text="${code}"></span>&nbsp;<span onclick="window.open('/user/deleteOffer?cId='+$('#cid').val(), '_self')" class="glyphicon glyphicon-trash pointer"></span></td>
             </tr>
             <tr>
-                <td>Amount to be paid</td>
+                <td>Amount to be paid (Base + 18% GST)</td>
                 <td>&#8377; &nbsp;<span th:text="${amountToPaid}"></span></td>
             </tr>
             <tr th:if="${couponApplied==false}">
