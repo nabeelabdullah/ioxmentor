@@ -114,6 +114,9 @@ public class BaseController {
         else if (cid.equals("4")) {
             return "hadoop";
         }
+        else if (cid.equals("5")) {
+            return "cloud";
+        }
         return "";
     }
 
