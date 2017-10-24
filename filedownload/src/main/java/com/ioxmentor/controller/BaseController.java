@@ -72,12 +72,11 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signUp(Model modelAndView, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String contact) {
+    public String signUp(HttpServletRequest request, HttpServletResponse response, Model modelAndView, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String contact) {
         SignUpStatus signUpStatus = account.signUp(name, email, password, contact);
         if (signUpStatus == SignUpStatus.DONE) {
             modelAndView.addAttribute("result", "You have successfully signed up.");
-            LoginDTO loginDTO = account.doLogin(email, password);
-            return "redirect:/home";
+            return login(request, response, modelAndView, email, password, null);
         } else {
             if (signUpStatus == SignUpStatus.EMAIL_EXIST) {
                 modelAndView.addAttribute("result", "Email already exists");
@@ -110,11 +109,9 @@ public class BaseController {
             return "devops";
         } else if (cid.equals("3")) {
             return "fullstack";
-        }
-        else if (cid.equals("4")) {
+        } else if (cid.equals("4")) {
             return "hadoop";
-        }
-        else if (cid.equals("5")) {
+        } else if (cid.equals("5")) {
             return "cloud";
         }
         return "";
