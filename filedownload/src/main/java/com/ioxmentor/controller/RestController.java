@@ -101,7 +101,7 @@ public class RestController {
         view.addAttribute("result", "You have Added for the Course .Find details below");
         view.addAttribute("amount", enroll.getActualPrice());
         view.addAttribute("discount", discount);
-        view.addAttribute("gst", enroll.getAmmountToBePaid() * 18 / 100);
+        view.addAttribute("gst", (enroll.getActualPrice()-discount) * 18 / 100);
         view.addAttribute("email", user.getEmail());
         view.addAttribute("title", course.getCourseTitle());
         view.addAttribute("name", user.getUserName());
