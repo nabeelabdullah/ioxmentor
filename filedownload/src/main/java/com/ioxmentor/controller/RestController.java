@@ -95,9 +95,13 @@ public class RestController {
         Enroll enroll = enrollService.enroll(Long.parseLong(request.getAttribute("userId").toString()), cId, "");
         Course course = courseService.getCourseById(cId);
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
+
+        Float discount = (enroll.getActualPrice() * 1.18 - enroll.getAmmountToBePaid());
+
         view.addAttribute("result", "You have Added for the Course .Find details below");
         view.addAttribute("amount", enroll.getActualPrice());
-        view.addAttribute("gst", enroll.getActualPrice() * 18 / 100);
+        view.addAttribute("discount", discount);
+        view.addAttribute("gst", enroll.getAmmountToBePaid() * 18 / 100);
         view.addAttribute("email", user.getEmail());
         view.addAttribute("title", course.getCourseTitle());
         view.addAttribute("name", user.getUserName());
