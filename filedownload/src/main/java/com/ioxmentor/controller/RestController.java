@@ -96,12 +96,10 @@ public class RestController {
         Course course = courseService.getCourseById(cId);
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
 
-        Double discount = (enroll.getActualPrice() * 1.18 - enroll.getAmmountToBePaid());
-
         view.addAttribute("result", "You have Added for the Course .Find details below");
         view.addAttribute("amount", enroll.getActualPrice());
-        view.addAttribute("discount", discount);
-        view.addAttribute("gst", (enroll.getActualPrice()-discount) * 18 / 100);
+        view.addAttribute("discount", enroll.getDiscount());
+        view.addAttribute("gst", (enroll.getActualPrice()-enroll.getDiscount()) * 18 / 100);
         view.addAttribute("email", user.getEmail());
         view.addAttribute("title", course.getCourseTitle());
         view.addAttribute("name", user.getUserName());

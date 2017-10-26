@@ -51,6 +51,7 @@ public class EnrollService {
         enroll.setAmmountToBePaid(TaxService.getFinalAmount(enroll.getActualPrice()));
         enroll.setCoupon(null);
         enroll.setCouponApplied(false);
+        enroll.setDiscount(0.0f);
         enroll = enrollRepo.save(enroll);
         return enroll;
     }
@@ -63,7 +64,9 @@ public class EnrollService {
             AmountType type = coupon.getAmountType();
             enroll.setCouponApplied(true);
             enroll.setCoupon(coupon.getCoupon());
-            enroll.setAmmountToBePaid(TaxService.getFinalAmount(getAmountAfterDiscount(coupon.getAmountOff(), enroll.getActualPrice(), type)));
+            Float discount=getAmountAfterDiscount(coupon.getAmountOff(), enroll.getActualPrice(), type);
+            enroll.setAmmountToBePaid(TaxService.getFinalAmount(discount));
+            enroll.setDiscount(discount);
         }
         enroll = enrollRepo.save(enroll);
         return enroll;

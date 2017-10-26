@@ -47,6 +47,9 @@ public class Enroll {
     private Float ammountToBePaid;
 
     @Column
+    private Float discount;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private CourseType courseType;
 
@@ -144,5 +147,13 @@ public class Enroll {
 
     public void setAmmountToBePaid(Float ammountToBePaid) {
         this.ammountToBePaid = ammountToBePaid;
+    }
+
+    public Float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Float discount) {
+        this.discount = discount;
     }
 }
