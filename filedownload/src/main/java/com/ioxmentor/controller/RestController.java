@@ -96,7 +96,7 @@ public class RestController {
         Course course = courseService.getCourseById(cId);
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
 
-        Float discount = (enroll.getActualPrice() * 1.18 - enroll.getAmmountToBePaid());
+        Double discount = (enroll.getActualPrice() * 1.18 - enroll.getAmmountToBePaid());
 
         view.addAttribute("result", "You have Added for the Course .Find details below");
         view.addAttribute("amount", enroll.getActualPrice());
