@@ -28,6 +28,10 @@
     <script src="/js/custom.js" type="text/javascript"></script>
     <script src="/js/basic.js" type="text/javascript"></script>
 </head>
+<style>
+
+
+</style>
 <body>
 
 <div class="container-fluid">
@@ -131,87 +135,29 @@
                 <td colspan="2"><input type="submit" class="btn btn-info" value="Pay"/></td>
             </tr>
         </table>
+            <input type="hidden" name="email" id="email" th:value="${email}"/>
+            <input type="hidden" name="phone" th:value="${contact}"/>
+            <textarea style="width:0px;height:0px;visibility: hidden;" th:text="${enrollId}" name="productinfo"> </textarea>
+            <input type="hidden" name="surl" th:value="${surl}" size="64"/>
+            <input type="hidden" name="furl" th:value="${furl}" size="64"/>
+            <input type="hidden" name="service_provider" value="payu_paisa"/>
+            <input type="hidden" name="firstname" th:value="${name}" id="firstname"/>
+            <input type="hidden" name="amount" th:value="${amountToPaid}"/>
+            <input type="hidden" name="lastname" id="lastname"/>
+            <input type="hidden" name="curl" value=""/>
+            <input type="hidden" name="address1"/>
+            <input type="hidden" name="address2"/>
+            <input type="hidden" name="city"/>
+            <input type="hidden" name="country"/>
+            <input type="hidden" name="udf1"/>
+            <input type="hidden" name="state"/>
+            <input type="hidden" name="udf2"/>
+            <input type="hidden" name="zipcode"/>
+            <input type="hidden" name="udf3"/>
+            <input type="hidden" name="udf4"/>
+            <input type="hidden" name="udf5"/>
+            <input type="hidden" name="pg"/>
 
-        <table class="table" style="visibility:hidden;width:0px;height:0px">
-            <tr>
-                <td>Amount:</td>
-                <td><input name="amount" th:value="${amountToPaid}"/></td>
-                <td>First Name:</td>
-                <td><input name="firstname" th:value="${name}" id="firstname"/></td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><input name="email" id="email" th:value="${email}"/></td>
-                <td>Phone:</td>
-                <td><input name="phone" th:value="${contact}"/></td>
-            </tr>
-            <tr>
-                <td>Product Info:</td>
-                <td colspan="3"><textarea th:text="${enrollId}" name="productinfo"> </textarea></td>
-            </tr>
-            <tr>
-                <td>Success URI:</td>
-                <td colspan="3"><input name="surl" th:value="${surl}" size="64"/></td>
-            </tr>
-            <tr>
-                <td>Failure URI:</td>
-                <td colspan="3"><input name="furl" th:value="${furl}" size="64"/></td>
-            </tr>
-
-            <tr>
-                <td colspan="3"><input type="hidden" name="service_provider" value="payu_paisa"/></td>
-            </tr>
-
-        </table>
-        <span>
-                <table style="visibility:hidden;width:0px;height:0px">
-                 <tr>
-                    <td><b>Optional Parameters</b></td>
-                </tr>
-                <tr>
-                    <td>Last Name: </td>
-                    <td><input name="lastname" id="lastname"/></td>
-                    <td>Cancel URI: </td>
-                    <td><input name="curl" value=""/></td>
-                </tr>
-                <tr>
-                    <td>Address1: </td>
-                    <td><input name="address1"/></td>
-                    <td>Address2: </td>
-                    <td><input name="address2"/></td>
-                </tr>
-                <tr>
-                    <td>City: </td>
-                    <td><input name="city"/></td>
-                    <td>State: </td>
-                    <td><input name="state"/></td>
-                </tr>
-                <tr>
-                    <td>Country: </td>
-                    <td><input name="country"/></td>
-                    <td>Zipcode: </td>
-                    <td><input name="zipcode"/></td>
-                </tr>
-                <tr>
-                    <td>UDF1: </td>
-                    <td><input name="udf1"/></td>
-                    <td>UDF2: </td>
-                    <td><input name="udf2"/></td>
-                </tr>
-                <tr>
-                    <td>UDF3: </td>
-                    <td><input name="udf3"/></td>
-                    <td>UDF4: </td>
-                    <td><input name="udf4"/></td>
-                </tr>
-                <tr>
-                    <td>UDF5: </td>
-                    <td><input name="udf5"/></td>
-                    <td>PG: </td>
-                    <td><input name="pg"/></td>
-                </tr>
-                </table>
-            </span>
     </form>
 </div>
 
