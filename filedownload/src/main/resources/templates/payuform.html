@@ -30,7 +30,6 @@
 </head>
 <style>
 
-
 </style>
 <body>
 
@@ -99,15 +98,19 @@
                 <td th:text="${contact}"></td>
             </tr>
             <tr>
-                <td>Base Amount</td>
+                <td>Sub total</td>
                 <td>&#8377; &nbsp;<span th:text="${amount}"></span></td>
+            </tr>
+            <tr>
+                <td>GST(18%)</td>
+                <td>&#8377; &nbsp;<span th:text="${gst}"></span></td>
             </tr>
             <tr th:if="${couponApplied==true}">
                 <td>Coupon Code </td>
                 <td><span th:text="${code}"></span>&nbsp;<span onclick="window.open('/user/deleteOffer?cId='+$('#cid').val(), '_self')" class="glyphicon glyphicon-trash pointer"></span></td>
             </tr>
             <tr>
-                <td>Amount to be paid (Base + 18% GST)</td>
+                <td>Gross Total</td>
                 <td>&#8377; &nbsp;<span th:text="${amountToPaid}"></span></td>
             </tr>
             <tr th:if="${couponApplied==false}">

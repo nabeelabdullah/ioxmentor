@@ -97,6 +97,7 @@ public class RestController {
         User user = userRepo.findOne(Long.parseLong(request.getAttribute("userId").toString()));
         view.addAttribute("result", "You have Added for the Course .Find details below");
         view.addAttribute("amount", enroll.getActualPrice());
+        view.addAttribute("gst", enroll.getActualPrice() * 18 / 100);
         view.addAttribute("email", user.getEmail());
         view.addAttribute("title", course.getCourseTitle());
         view.addAttribute("name", user.getUserName());
