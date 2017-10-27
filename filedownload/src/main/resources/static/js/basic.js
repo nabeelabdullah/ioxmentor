@@ -1,4 +1,17 @@
 
+
+$(window).on('load', function() {
+$('#enquirypop').hide();
+
+      setTimeout(function(){
+      if($('#enquirypop').attr('data-open')=='false'){
+       $('#enquirypop').show();
+       }
+    }, 30000);
+  console.log('All assets are loaded')
+})
+
+
  function doAlertSubmit()
     {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

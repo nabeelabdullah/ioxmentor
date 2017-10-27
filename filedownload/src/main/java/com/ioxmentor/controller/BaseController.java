@@ -113,6 +113,10 @@ public class BaseController {
             return "hadoop";
         } else if (cid.equals("5")) {
             return "cloud";
+        } else if (cid.equals("6")) {
+            return "blockchain";
+        } else if (cid.equals("7")) {
+            return "Informatica";
         }
         return "";
     }

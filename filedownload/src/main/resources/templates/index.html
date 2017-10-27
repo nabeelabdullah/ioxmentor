@@ -52,6 +52,8 @@
 
 
 
+
+
     </script>
     <!-- =======================================================
           Theme Name: Mentor
@@ -454,7 +456,8 @@
                         AWS
                         MASTERY</b></p>
                     <hr/>
-                    <p>Amazon Web Services (AWS) is a secure cloud services platform, offering compute power, database storage,
+                    <p>Amazon Web Services (AWS) is a secure cloud services platform, offering compute power, database
+                        storage,
                         content delivery and other functionality to help businesses scale and grow.</p>
                     <hr/>
                     <a href="/5/course">
@@ -468,86 +471,75 @@
         </div>
 
 
+        <br/>
+        <hr/>
+        <br/>
+        <div class="row">
+            <div class="col-md-8" style="float:left">
+                <div class="col-sm-6">
+                    <img src="/img/blockchain.png" style="width: 100%"/>
+                </div>
+                <div class="col-sm-6">
+                    <br/>
+                    <p style="color:black"><b>FAST LANE
+                        BLOCK CHAIN
+                        MASTERY</b></p>
+                    <hr/>
+                    <p>A blockchain is a digitized, decentralized, public ledger of all cryptocurrency transactions.
+                        Constantly growing as ‘completed’ blocks (the most recent transactions) are recorded and added
+                        to it in chronological order, it allows market participants to keep track of digital currency
+                        transactions without central recordkeeping.</p>
+                    <hr/>
+                    <a href="/6/course">
+                        <button style="width:100%;" class="btn btn-info">START MY TRENDING JOURNEY NOW</button>
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <br/>
+        <hr/>
+        <br/>
+        <div class="row">
+            <div class="col-md-8" style="float:right">
+                <div class="col-sm-6">
+                    <img src="/img/maxresdefault.jpg" style="width: 100%"/>
+                </div>
+                <div class="col-sm-6">
+                    <br/>
+                    <p style="color:black"><b>FAST LANE
+                        INFORMATION
+                        MASTERY</b></p>
+                    <hr/>
+                    <p>Informatica training is exceptionally designed to gain expertise in Informatica power center and
+                        boost your career with advanced Informatica.</p>
+                    <hr/>
+                    <a href="/7/course">
+                        <button style="width:100%;" class="btn btn-info">START MY TRENDING JOURNEY NOW</button>
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
     </div>
 </section>
 
-
-<div id="enquirypop" data-open="false" class="box-shadow"
-     style="display:hidden;z-index:102;width:290px;height:425px;background-color:#f5f5f5;bottom:0px;right:0px;position:fixed;border:1px solid transparent">
-    <div style="background-color:#1b3f8b;height:25px;width:100%;">
-        <div class="col-sm-10"></div>
-        <div class="col-sm-2">
-            <span style="color:white" onclick="$('#enquirypop').hide();"
-                  class="glyphicon glyphicon-minus pointer"></span>
-        </div>
-
-    </div>
-    <div style="background-color:#1b3f8b;height:400px;width:100%;color:white">
-        <div class="container" style="border:1px solid transparent">
-
-            <div class="form-group">
-                <label for="email">Email*</label>
-                <input type="email" class="form-control" style="width:250px;" id="email" placeholder="Enter email"
-                       name="email" required="true"/>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Name*</label>
-                <input type="text" class="form-control" style="width:250px;" id="name" placeholder="Enter Name"
-                       name="name" required="true"/>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Contact*</label>
-                <input type="text" class="form-control" style="width:250px;" id="contact" placeholder="Enter Contact"
-                       name="contact" required="true"/>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Message(optional)</label>
-                <textarea type="text" class="form-control" style="width:250px;height:70px;" id="message"
-                          placeholder="Enter Message" name="message"/>
-            </div>
-            <button type="submit" onclick="doAlertSubmit();" class="btn btn-default">Submit</button>
-
-        </div>
-    </div>
-</div>
-
-
-<!--/ Courses-->
-<!--Pricing-->
-
-<!--/ Pricing-->
-<!--Contact-->
-
-<!--/ Contact-->
-<!--Footer-->
 <footer id="footer" class="footer">
     <div class="container text-center">
-
-
-        <!-- End newsletter-form -->
-        <!--<ul class="social-links">
-          <li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
-          <li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
-          <li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
-          <li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
-          <li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
-        </ul>-->
         ©2017 CODINGSUPERSTAR
         <div class="credits">
-            <!--
-                    All the links in the footer should remain intact.
-                    You can delete the links only if you purchased the pro version.
-                    Licensing information: https://bootstrapmade.com/license/
-                    Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Mentor
-                -->
-
         </div>
     </div>
 </footer>
 <!--/ Footer-->
-<button onclick="$('#enquirypop').show();$('#enquirypop').attr('data-open','true')"
-        style="outline :none;z-index:100;border-radius:100%;position:fixed;right:30px;bottom:30px;padding:20px;padding-top:15px;padding-bottom:15px;"
-        type="button" class="btn btn-primary"><i class="glyphicon glyphicon-send"></i></button>
+<span th:replace='footer'></span>
 
 </body>
 
