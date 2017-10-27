@@ -101,20 +101,25 @@
                 <td>Sub total</td>
                 <td>&#8377; &nbsp;<span th:text="${amount}"></span></td>
             </tr>
+
             <tr>
-                <td>GST(18%)</td>
-                <td>&#8377; &nbsp;<span th:text="${gst}"></span></td>
-            </tr>
-            <tr th:if="${couponApplied==true}">
                 <td>Discount</td>
                 <td>&#8377; &nbsp;<span th:text="${discount}"></span></td>
+            </tr>
+            <tr>
+                <td>Final Price</td>
+                <td>&#8377; &nbsp;<span th:text="${amount-discount}"></span></td>
+            </tr>
+            <tr>
+                <td>GST on Final Price(18%)</td>
+                <td>&#8377; &nbsp;<span th:text="${gst}"></span></td>
             </tr>
             <tr th:if="${couponApplied==true}">
                 <td>Coupon Code </td>
                 <td><span th:text="${code}"></span>&nbsp;<span onclick="window.open('/user/deleteOffer?cId='+$('#cid').val(), '_self')" class="glyphicon glyphicon-trash pointer"></span></td>
             </tr>
             <tr>
-                <td>Gross Total</td>
+                <td>Gross Total(Final Price + GST)</td>
                 <td>&#8377; &nbsp;<span th:text="${amountToPaid}"></span></td>
             </tr>
             <tr th:if="${couponApplied==false}">

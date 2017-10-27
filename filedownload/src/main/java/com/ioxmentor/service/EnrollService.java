@@ -38,6 +38,7 @@ public class EnrollService {
             enroll.setAmmountToBePaid(TaxService.getFinalAmount(course.getBasePriceOffline()));
             enroll.setCourseId(cId);
             enroll.setAmountPaid(0.0f);
+            enroll.setDiscount(0.0f);
             enroll.setActualPrice(course.getBasePriceOffline());
             enroll.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
             enroll.setPaymentStatus(PaymentStatus.UNPAID);
@@ -64,8 +65,8 @@ public class EnrollService {
             AmountType type = coupon.getAmountType();
             enroll.setCouponApplied(true);
             enroll.setCoupon(coupon.getCoupon());
-            Float discount=getAmountAfterDiscount(coupon.getAmountOff(), enroll.getActualPrice(), type);
-            enroll.setAmmountToBePaid(TaxService.getFinalAmount(discount));
+            Float discount = enroll.getActualPrice() - getAmountAfterDiscount(coupon.getAmountOff(), enroll.getActualPrice(), type);
+            enroll.setAmmountToBePaid(TaxService.getFinalAmount(enroll.getActualPrice() - discount));
             enroll.setDiscount(discount);
         }
         enroll = enrollRepo.save(enroll);
