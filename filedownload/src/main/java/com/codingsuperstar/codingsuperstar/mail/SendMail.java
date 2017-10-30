@@ -1,5 +1,6 @@
 package com.codingsuperstar.codingsuperstar.mail;
 
+import java.security.Security;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -23,19 +24,27 @@ import javax.mail.internet.MimeMultipart;
  * @author NABEEL
  */
 public class SendMail {
+    private static final String SMTP_HOST_NAME = "smtp.zoho.com";
 
     private boolean sendmailfunction(String content, String name, String f_name, String to, String by, String subject) throws MessagingException {
-        String host = "smtp.gmail.com";
-        String Password = "akhtar079723";
-        String from = "multikbis.com@gmail.com";
+        String host = SMTP_HOST_NAME;
+        String Password = "nabeel@123";
+        String from = "nabeel@codingsuperstar.com";
         String toAddress = to;
         String filename = f_name;
-        Properties props = System.getProperties();
-        props.put("mail.smtps.host", host);
-        props.put("mail.transport.protocol", "smtps");
-        props.put("mail.smtps.ssl.trust", "*");
-        props.put("mail.smtps.auth", "true");
-        props.put("mail.smtps.starttls.enable", "true");
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.zoho.com");
+
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        props.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        props.setProperty("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.startssl.enable", "true");
         String send_by = "message send by " + by;
 
         Session session = Session.getInstance(props, null);
@@ -78,7 +87,7 @@ public class SendMail {
         message.setContent(multipart);
 
         try {
-            Transport tr = session.getTransport("smtps");
+            Transport tr = session.getTransport("smtp");
             tr.connect(host, 465, from, Password);
             tr.sendMessage(message, message.getAllRecipients());
             System.out.println("Mail Sent Successfully");
