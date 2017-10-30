@@ -22,6 +22,7 @@ public class HomeController {
 
     @RequestMapping(value = "/save")
     public String alert(@RequestParam String name, @RequestParam String email, @RequestParam String contact, @RequestParam String message) {
+        System.out.println("this is for save");
         Alert alert = new Alert();
         alert.setContact(contact);
         alert.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
