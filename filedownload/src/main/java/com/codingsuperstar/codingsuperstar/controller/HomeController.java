@@ -34,7 +34,7 @@ public class HomeController {
             @Override
             public void run() {
                 SendMail sendMail = new SendMail();
-                sendMail.sendmail("<table><tr><td>Name</td><td>Email</td><td>Mobile</td><td>Message</td></tr>" + getContent(name, email, contact, message) + "</table>", "CodingSuperStar", null, "contact.nabeelabdullah@gmail.com", "CodingSuperStar", "New Alerts");
+                sendMail.sendmail("<table><tr><td>Name</td><td>Email</td><td>Mobile</td><td>Message</td></tr>" + getContent(name, email, contact, message) + "</table>", "CodingSuperStar", null, new String[]{"contact.nabeelabdullah@gmail.com", "gk@tvashtri.in"}, "New Alerts");
             }
         }).start();
         return "done";

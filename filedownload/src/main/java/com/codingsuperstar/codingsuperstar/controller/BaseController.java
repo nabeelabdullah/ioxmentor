@@ -6,7 +6,10 @@ import com.codingsuperstar.codingsuperstar.entity.Transaction;
 import com.codingsuperstar.codingsuperstar.entity.User;
 import com.codingsuperstar.codingsuperstar.enums.LoginStatus;
 import com.codingsuperstar.codingsuperstar.enums.SignUpStatus;
+import com.codingsuperstar.codingsuperstar.enums.Template;
 import com.codingsuperstar.codingsuperstar.enums.TransanctionRepo;
+import com.codingsuperstar.codingsuperstar.mail.MailRequest;
+import com.codingsuperstar.codingsuperstar.mail.SendMail;
 import com.codingsuperstar.codingsuperstar.repo.UserRepo;
 import com.codingsuperstar.codingsuperstar.service.Account;
 import com.codingsuperstar.codingsuperstar.service.EnrollService;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * created By @Nabeel 08-Oct-2017
@@ -38,6 +43,9 @@ public class BaseController {
 
     @Autowired
     private EnrollService enrollService;
+
+    @Autowired
+    private MailRequest mailRequest;
 
     public void homeHeader(Model model, HttpServletRequest request) {
         model.addAttribute("isLogin", "0");
@@ -72,10 +80,24 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signUp(HttpServletRequest request, HttpServletResponse response, Model modelAndView, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String contact) {
+    public String signUp(HttpServletRequest request, HttpServletResponse response, Model modelAndView, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String contact) throws Exception {
         SignUpStatus signUpStatus = account.signUp(name, email, password, contact);
         if (signUpStatus == SignUpStatus.DONE) {
             modelAndView.addAttribute("result", "You have successfully signed up.");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("name", name);
+                        String content = mailRequest.getContent(Template.SIGN_UP_NAME, map);
+                        SendMail sendMail = new SendMail();
+                        sendMail.sendmail(content, new String[]{email}, "Signup success");
+                    } catch (Exception er) {
+                        er.printStackTrace();
+                    }
+                }
+            }).start();
             return login(request, response, modelAndView, email, password, null);
         } else {
             if (signUpStatus == SignUpStatus.EMAIL_EXIST) {

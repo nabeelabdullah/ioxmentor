@@ -26,11 +26,10 @@ import javax.mail.internet.MimeMultipart;
 public class SendMail {
     private static final String SMTP_HOST_NAME = "smtp.zoho.com";
 
-    private boolean sendmailfunction(String content, String name, String f_name, String to, String by, String subject) throws MessagingException {
+    private boolean sendmailfunction(String content, String name, String f_name, String[] to, String subject) throws MessagingException {
         String host = SMTP_HOST_NAME;
         String Password = "nabeel@123";
         String from = "nabeel@codingsuperstar.com";
-        String toAddress = to;
         String filename = f_name;
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
@@ -45,7 +44,6 @@ public class SendMail {
         props.setProperty("mail.smtp.socketFactory.fallback", "false");
         props.setProperty("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.startssl.enable", "true");
-        String send_by = "message send by " + by;
 
         Session session = Session.getInstance(props, null);
 
@@ -53,17 +51,18 @@ public class SendMail {
 
         message.setFrom(new InternetAddress(from));
 
-        message.setRecipients(Message.RecipientType.TO, new InternetAddress().parse(toAddress));//toAddress);
+        InternetAddress[] addressTo = new InternetAddress[to.length];
+        for (int i = 0; i < to.length; i++) {
+            addressTo[i] = new InternetAddress(to[i]);
+        }
+
+        message.setRecipients(Message.RecipientType.TO, addressTo);//toAddress);
 
         message.setSubject(subject);//("JavaMail Attachment");
 
         BodyPart messageBodyPart = new MimeBodyPart();
 
-        messageBodyPart.setText(send_by);////("Here's the file");
-
         Multipart multipart = new MimeMultipart();
-
-        multipart.addBodyPart(messageBodyPart);
 
         BodyPart messageBodyPartContent = new MimeBodyPart();
 
@@ -104,8 +103,8 @@ public class SendMail {
         try {
             SendMail sm = new SendMail();
             long start = Calendar.getInstance().getTimeInMillis();
-            sm.sendmailfunction("  content", "Name", "/Users/nabeelabdullah/Desktop/AWS-strategy-gambar.png", "nabeel.abdullah@freshmenu.com", "nabeel", "");
-            // sm.sendmailfunction("  dd", null, "nabeel.abdullah@freshmenu.com", "nabeel", "s");
+            // sm.sendmailfunction("  content", "Name", "/Users/nabeelabdullah/Desktop/AWS-strategy-gambar.png", new String[]{"nabeel.abdullah@freshmenu.com"}, "");
+            sm.sendmailfunction("  dd", null, null, new String[]{"nabeel.abdullah@freshmenu.com"}, "s");
             long end = Calendar.getInstance().getTimeInMillis();
             System.out.println("time taken is " + (end - start) / 1000);
         } catch (MessagingException ex) {
@@ -113,9 +112,20 @@ public class SendMail {
         }
     }
 
-    public boolean sendmail(String content, String name, String path, String to, String by, String subject) {
+    public boolean sendmail(String content, String name, String path, String[] to, String subject) {
         try {
-            sendmailfunction(content, name, path, to, by, subject);
+            sendmailfunction(content, name, path, to, subject);
+        } catch (MessagingException ex) {
+            System.out.println(ex);
+            Logger.getLogger(SendMail.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean sendmail(String content, String[] to, String subject) {
+        try {
+            sendmailfunction(content, null, null, to, subject);
         } catch (MessagingException ex) {
             System.out.println(ex);
             Logger.getLogger(SendMail.class.getName()).log(Level.SEVERE, null, ex);
