@@ -11,6 +11,7 @@ import com.codingsuperstar.codingsuperstar.mail.SendMail;
 import com.codingsuperstar.codingsuperstar.repo.UserRepo;
 import com.codingsuperstar.codingsuperstar.service.Account;
 import com.codingsuperstar.codingsuperstar.service.EnrollService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,72 @@ public class BaseController {
             model.addAttribute("name", user.getUserName());
             model.addAttribute("userId", userId);
         }
+    }
+
+    @RequestMapping(value = "/sendOTP", method = RequestMethod.GET)
+    public String forgetPassSendOTP(Model model) {
+        model.addAttribute("status", "FORGET_PASS");
+        return "forgetpass";
+    }
+
+    @RequestMapping(value = "/validateOTP", method = RequestMethod.GET)
+    public String validateOTP(Model model) {
+        model.addAttribute("status", "FORGET_PASS");
+        return "forgetpass";
+    }
+
+    @RequestMapping(value = "/sendOTP", method = RequestMethod.POST)
+    public String forgetPassSendOTP(Model model, @RequestParam String email) {
+        Validation validation = account.genrateOTP(email);
+        if (validation != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String content = "Hi,<br/> your OTP is <b>" + validation.getCode() + "</b>";
+                        SendMail sendMail = new SendMail();
+                        sendMail.sendmail(content, new String[]{email}, "Forget Password OTP");
+                    } catch (Exception er) {
+                        er.printStackTrace();
+                    }
+                }
+            }).start();
+
+            model.addAttribute("id", validation.getId());
+            model.addAttribute("status", "OTP_SEND");
+            model.addAttribute("result", "OTP send to your email");
+            model.addAttribute("email", email);
+        } else {
+            model.addAttribute("status", "FORGET_PASS");
+            model.addAttribute("result", "Email not exists");
+        }
+        return "forgetpass";
+    }
+
+    @RequestMapping(value = "/validateOTP", method = RequestMethod.POST)
+    public String validateOTP(Model model, @RequestParam Long id, @RequestParam String opt, @RequestParam String password) {
+        model.addAttribute("status", "FORGET_PASS");
+        ValidationStatus validationStatus = account.doValidate(id, opt);
+        if (validationStatus == ValidationStatus.SUCCESSFUL) {
+            Validation validation = account.getValidation(id);
+            model.addAttribute("status", "PASS_CHANGED");
+            account.changedPassword(validation.getUserId(), password);
+            return "validationResult";
+        }
+        if (validationStatus == ValidationStatus.NOT_MATCHED) {
+            Validation validation = account.getValidation(id);
+            model.addAttribute("result", "OTP missmatched");
+            model.addAttribute("status", "OTP_SEND");
+            model.addAttribute("id", validation.getId());
+            model.addAttribute("email", userRepo.findOne(validation.getUserId()).getEmail());
+        }
+        return "forgetpass";
+    }
+
+    @RequestMapping(value = "/forgetpass")
+    public String forgetpass(Model model) {
+        model.addAttribute("status", "FORGET_PASS");
+        return "forgetpass";
     }
 
     @RequestMapping(value = "/home")

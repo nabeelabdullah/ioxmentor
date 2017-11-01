@@ -14,16 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by nabeelabdullah on 09/10/17.
  */
 @Component
 public class Account {
+
+    Random rnd = new Random();
 
     @Autowired
     private UserRepo userRepo;
@@ -79,6 +78,15 @@ public class Account {
         return loginDTO;
     }
 
+    public void changedPassword(Long userId, String password) {
+        User user = userRepo.findOne(userId);
+        if (user != null) {
+            user.setPassword(password);
+            userRepo.save(user);
+        }
+
+    }
+
     public SignUpStatus signUp(String name, String email, String password, String contact) {
         try {
             if (userRepo.findByEmail(email) == null) {
@@ -99,6 +107,10 @@ public class Account {
         }
     }
 
+    public Validation getValidation(Long id) {
+        return validationRepo.findOne(id);
+    }
+
     public ValidationStatus doValidate(Long id, String code) {
         Validation validation = validationRepo.findOne(id);
         if (validation == null || !validation.getCode().equals(code)) {
@@ -111,6 +123,22 @@ public class Account {
         user.setActiveStatus(ActiveStatus.ACTIVE);
         userRepo.save(user);
         return ValidationStatus.SUCCESSFUL;
+    }
+
+    public Validation genrateOTP(String email) {
+        User user = userRepo.findByEmail(email);
+        if (user != null) {
+            int n = 100000 + rnd.nextInt(900000);
+            Validation validation = new Validation();
+            validation.setCode("" + n);
+            validation.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            validation.setExpAt(new Timestamp(calendar.getTimeInMillis()));
+            validation.setUserId(user.getId());
+            return validationRepo.save(validation);
+        }
+        return null;
     }
 
     public Validation validationCode(Long userId) {

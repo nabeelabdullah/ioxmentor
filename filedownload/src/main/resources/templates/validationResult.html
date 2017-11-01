@@ -118,6 +118,16 @@
             <br/><br/>
         </div>
 
+        <div class="col-sm-6 col-sm-offset-3" th:if="${status=='PASS_CHANGED'}">
+            <br/><br/>
+            <h2 style="color:red"></h2>
+            <img src="http://osmhotels.com//assets/check-false.jpg"/>
+            <h3>Dear,<span th:text="${name}"></span></h3>
+            <p style="font-size:20px;color:#5C5C5C;">Your password has been changed.</p>
+            <a href="/doLogin" class="btn btn-success">     Log in     </a>
+            <br/><br/>
+        </div>
+
     </div>
 </div>
 </body>
