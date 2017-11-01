@@ -96,7 +96,7 @@ public class BaseController {
                 public void run() {
                     try {
                         Validation validation = account.validationCode(userRepo.findByEmail(email).getId());
-                        String link = "http://localhost:8080/validate?id=" + validation.getId() + "&code=" + validation.getCode();
+                        String link = "http://codingsuperstar.com/validate?id=" + validation.getId() + "&code=" + validation.getCode();
                         Map<String, String> map = new HashMap<>();
                         map.put("name", name);
                         map.put("link", link);

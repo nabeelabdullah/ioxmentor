@@ -60,7 +60,7 @@ public class Account {
                     public void run() {
                         try {
                             Validation validation = validationCode(user.getId());
-                            String link = "http://localhost:8080/validate?id=" + validation.getId() + "&code=" + validation.getCode();
+                            String link = "http://codingsuperstar.com/validate?id=" + validation.getId() + "&code=" + validation.getCode();
                             Map<String, String> map = new HashMap<>();
                             map.put("name", user.getUserName());
                             map.put("link", link);
