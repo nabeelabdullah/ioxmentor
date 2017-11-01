@@ -5,5 +5,5 @@ package com.codingsuperstar.codingsuperstar.enums;
  */
 public enum LoginStatus {
 
-    LOGGED_IN, NOT_LOGGED_IN
+    LOGGED_IN, NOT_LOGGED_IN, NOT_ACTIVE;
 }

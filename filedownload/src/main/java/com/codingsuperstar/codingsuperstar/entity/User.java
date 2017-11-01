@@ -1,13 +1,10 @@
 package com.codingsuperstar.codingsuperstar.entity;
 
+import com.codingsuperstar.codingsuperstar.enums.ActiveStatus;
+
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * created By @Nabeel 08-Oct-2017
@@ -35,6 +32,10 @@ public class User implements Serializable {
 
     @Column
     private String contact;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ActiveStatus activeStatus;
 
     /**
      * @return the id
@@ -112,5 +113,13 @@ public class User implements Serializable {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public ActiveStatus getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(ActiveStatus activeStatus) {
+        this.activeStatus = activeStatus;
     }
 }

@@ -4,10 +4,8 @@ import com.codingsuperstar.codingsuperstar.dto.LoginDTO;
 import com.codingsuperstar.codingsuperstar.dto.PayUMoneyDTO;
 import com.codingsuperstar.codingsuperstar.entity.Transaction;
 import com.codingsuperstar.codingsuperstar.entity.User;
-import com.codingsuperstar.codingsuperstar.enums.LoginStatus;
-import com.codingsuperstar.codingsuperstar.enums.SignUpStatus;
-import com.codingsuperstar.codingsuperstar.enums.Template;
-import com.codingsuperstar.codingsuperstar.enums.TransanctionRepo;
+import com.codingsuperstar.codingsuperstar.entity.Validation;
+import com.codingsuperstar.codingsuperstar.enums.*;
 import com.codingsuperstar.codingsuperstar.mail.MailRequest;
 import com.codingsuperstar.codingsuperstar.mail.SendMail;
 import com.codingsuperstar.codingsuperstar.repo.UserRepo;
@@ -18,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +78,14 @@ public class BaseController {
         return "login";
     }
 
+    @RequestMapping(value = "/validate")
+    public String validateEmail(Model view, @RequestParam String code, @RequestParam Long id) {
+        ValidationStatus validationStatus = account.doValidate(id, code);
+        view.addAttribute("name", "User");
+        view.addAttribute("status", validationStatus.name());
+        return "validationResult";
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(HttpServletRequest request, HttpServletResponse response, Model modelAndView, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String contact) throws Exception {
         SignUpStatus signUpStatus = account.signUp(name, email, password, contact);
@@ -88,8 +95,11 @@ public class BaseController {
                 @Override
                 public void run() {
                     try {
+                        Validation validation = account.validationCode(userRepo.findByEmail(email).getId());
+                        String link = "http://localhost:8080/validate?id=" + validation.getId() + "&code=" + validation.getCode();
                         Map<String, String> map = new HashMap<>();
                         map.put("name", name);
+                        map.put("link", link);
                         String content = mailRequest.getContent(Template.SIGN_UP_NAME, map);
                         SendMail sendMail = new SendMail();
                         sendMail.sendmail(content, new String[]{email}, "Signup success");
@@ -98,7 +108,9 @@ public class BaseController {
                     }
                 }
             }).start();
-            return login(request, response, modelAndView, email, password, null);
+            modelAndView.addAttribute("name", "User");
+            modelAndView.addAttribute("status", "CODE_SEND");
+            return "validationResult";
         } else {
             if (signUpStatus == SignUpStatus.EMAIL_EXIST) {
                 modelAndView.addAttribute("result", "Email already exists");
@@ -155,6 +167,9 @@ public class BaseController {
                 return "redirect:" + redirect;
             }
             return "redirect:/home";
+        } else if (loginDTO.getLoginMGS() == LoginStatus.NOT_ACTIVE) {
+            modelAndView.addAttribute("status", LoginStatus.NOT_ACTIVE.name());
+            return "validationResult";
         } else {
             modelAndView.addAttribute("result", "Email/Password not correct");
         }
